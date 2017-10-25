@@ -1,0 +1,10 @@
+.vs/
+bin/
+obj/
+TestResults/
+packages/
+*.apk
+.sonarqube
+*.dll
+*.exe
+tools/
