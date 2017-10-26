@@ -2,16 +2,19 @@ environment:
   SONARQUBE_TOKEN:
     secure: DSwAr4fYt3Q35Sjob5qAN5ujYqFCPZQguJ2yhI3IN46AIK63sRLhpamof6BZr9lx
 before_build:
+#- choco install "msbuild-sonarqube-runner" -y
 - nuget restore
-- appveyor-retry dotnet restore -v Minimal
-build_script:
-- tools\sonar\MSBuild.SonarQube.Runner.exe begin /key:"canoe-polo-league-organiser-backend" /name:"canoe-polo-league-organiser-backend" /version:"1.0.0"
-# msbuild 14 must be used for sonarqube to work
-- msbuild /verbosity:quiet "/p:Configuration=Release" "CanoePoloLeagueOrganiser.sln" /t:pack
-- tools\sonar\MSBuild.SonarQube.Runner.exe end
-- .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"CanoePoloLeagueOrganiserTests\bin\Debug\CanoePoloLeagueOrganiserTests.dll -noshadow -appveyor"  -output:coverage.xml
-- "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
-- pip install codecov
-- codecov -f "coverage.xml"
-artifacts:
-  - path: CanoePoloLeagueOrganiserXamarin\bin\Release\com.canoe_polo_organisr-Signed.apk
+#- appveyor-retry dotnet restore -v Minimal
+#- MSBuild.SonarQube.Runner.exe begin /key:"canoe-polo-league-organiser-backend" /name:"canoe-polo-league-organiser-backend" /version:"1.0.0"
+build:
+  publish_nuget: true             # package projects with .nuspec files and push to artifacts
+  publish_nuget_symbols: true     # generate and publish NuGet symbol packagesbuild_script:
+after_build:
+#- MSBuild.SonarQube.Runner.exe end
+test_script:
+#- .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"CanoePoloLeagueOrganiserTests\bin\Debug\CanoePoloLeagueOrganiserTests.dll -noshadow -appveyor"  -output:coverage.xml
+#- "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
+#- pip install codecov
+#- codecov -f "coverage.xml"
+#artifacts:
+#  - path: CanoePoloLeagueOrganiserXamarin\bin\Release\com.canoe_polo_organisr-Signed.apk
