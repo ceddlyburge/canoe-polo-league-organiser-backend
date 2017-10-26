@@ -7,6 +7,7 @@ before_build:
 #- appveyor-retry dotnet restore -v Minimal
 #- MSBuild.SonarQube.Runner.exe begin /key:"canoe-polo-league-organiser-backend" /name:"canoe-polo-league-organiser-backend" /version:"1.0.0"
 build:
+  project: CanoePoloLeagueOrganiser.sln
   publish_nuget: true             # package projects with .nuspec files and push to artifacts
   publish_nuget_symbols: true     # generate and publish NuGet symbol packagesbuild_script:
 after_build:
