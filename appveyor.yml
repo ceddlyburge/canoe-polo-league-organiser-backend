@@ -1,19 +1,19 @@
 environment:
   SONARQUBE_TOKEN:
-    secure: DSwAr4fYt3Q35Sjob5qAN5ujYqFCPZQguJ2yhI3IN46AIK63sRLhpamof6BZr9lx
+    secure: qdGKfgHYg4+g2UpIhNRAE61rwGtm0vDLC9pUAxxDW66IiER7WLW5p4KiOxqVSjZX
 before_build:
 - choco install "msbuild-sonarqube-runner" -y
 - choco install opencover
 - nuget restore
 #- appveyor-retry dotnet restore -v Minimal
 #- MSBuild.SonarQube.Runner.exe begin /key:"canoe-polo-league-organiser-backend" /name:"canoe-polo-league-organiser-backend" /version:"1.0.0"
-- SonarQube.Scanner.MSBuild.exe begin /k:"cuddlyburger.canoe-polo-league-organiser-backend" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.organization=ceddlyburge-github" /d:"sonar.login=21bbc6204ca46cb315089ad035c6eac44acaca40"
+- SonarQube.Scanner.MSBuild.exe begin /k:"cuddlyburger.canoe-polo-league-organiser-backend" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.organization=ceddlyburge-github" /d:"sonar.login=%SONARQUBE_TOKEN%"
 build:
   project: CanoePoloLeagueOrganiser.sln
   #publish_nuget: true             # package projects with .nuspec files and push to artifacts
   #publish_nuget_symbols: true     # generate and publish NuGet symbol packagesbuild_script:
 after_build:
-- SonarQube.Scanner.MSBuild.exe end /d:"sonar.login=21bbc6204ca46cb315089ad035c6eac44acaca40"
+- SonarQube.Scanner.MSBuild.exe end /d:"sonar.login=%SONARQUBE_TOKEN%"
 test_script:
 #- OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"CanoePoloLeagueOrganiserTests\bin\Debug\CanoePoloLeagueOrganiserTests.dll -noshadow -appveyor"  -output:coverage.xml
 #- "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
