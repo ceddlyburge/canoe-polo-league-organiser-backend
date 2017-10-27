@@ -77,10 +77,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CanoePoloLeagueOrganiserXamarin\CanoePoloLeagueOrganiserXamarin.csproj">
-      <Project>{e0552043-bc04-476f-b938-c2883d71fb7b}</Project>
-      <Name>CanoePoloLeagueOrganiserXamarin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CanoePoloLeagueOrganiser\CanoePoloLeagueOrganiser.csproj">
       <Project>{6F5F087D-DFC8-4294-80C4-0D7A62A32922}</Project>
       <Name>CanoePoloLeagueOrganiser</Name>
