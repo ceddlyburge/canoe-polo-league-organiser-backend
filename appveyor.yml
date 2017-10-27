@@ -7,7 +7,7 @@ before_build:
 - nuget restore
 #- appveyor-retry dotnet restore -v Minimal
 #- MSBuild.SonarQube.Runner.exe begin /key:"canoe-polo-league-organiser-backend" /name:"canoe-polo-league-organiser-backend" /version:"1.0.0"
-- SonarQube.Scanner.MSBuild.exe begin /k:"cuddlyburger.canoe-polo-league-organiser-backend" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.organization=cuddlyburger" /d:"sonar.login=247e6da0e7539d34090718895c1a5e059a10352a"
+- SonarQube.Scanner.MSBuild.exe begin /k:"cuddlyburger.canoe-polo-league-organiser-backend" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=247e6da0e7539d34090718895c1a5e059a10352a" /d:"sonar.verbose=true"
 build:
   project: CanoePoloLeagueOrganiser.sln
   #publish_nuget: true             # package projects with .nuspec files and push to artifacts
