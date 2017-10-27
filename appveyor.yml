@@ -3,17 +3,19 @@ environment:
     secure: DSwAr4fYt3Q35Sjob5qAN5ujYqFCPZQguJ2yhI3IN46AIK63sRLhpamof6BZr9lx
 before_build:
 - choco install "msbuild-sonarqube-runner" -y
+- choco install opencover
 - nuget restore
 #- appveyor-retry dotnet restore -v Minimal
-- MSBuild.SonarQube.Runner.exe begin /key:"canoe-polo-league-organiser-backend" /name:"canoe-polo-league-organiser-backend" /version:"1.0.0"
+#- MSBuild.SonarQube.Runner.exe begin /key:"canoe-polo-league-organiser-backend" /name:"canoe-polo-league-organiser-backend" /version:"1.0.0"
+- SonarQube.Scanner.MSBuild.exe begin /k:"cuddlyburger.canoe-polo-league-organiser-backend" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.organization=cuddlyburger" /d:"sonar.login=247e6da0e7539d34090718895c1a5e059a10352a"
 build:
   project: CanoePoloLeagueOrganiser.sln
   #publish_nuget: true             # package projects with .nuspec files and push to artifacts
   #publish_nuget_symbols: true     # generate and publish NuGet symbol packagesbuild_script:
 after_build:
-- MSBuild.SonarQube.Runner.exe end
+- SonarQube.Scanner.MSBuild.exe end /d:"sonar.login=247e6da0e7539d34090718895c1a5e059a10352a"
 test_script:
-#- .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"CanoePoloLeagueOrganiserTests\bin\Debug\CanoePoloLeagueOrganiserTests.dll -noshadow -appveyor"  -output:coverage.xml
+#- OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"CanoePoloLeagueOrganiserTests\bin\Debug\CanoePoloLeagueOrganiserTests.dll -noshadow -appveyor"  -output:coverage.xml
 #- "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
 #- pip install codecov
 #- codecov -f "coverage.xml"
