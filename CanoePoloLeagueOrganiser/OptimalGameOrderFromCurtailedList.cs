@@ -50,7 +50,7 @@ namespace CanoePoloLeagueOrganiser
             bool continuePermupotatering = (permutationCount++ % 1000 != 0)
                  || Pragmatiser.AcceptableSolution(DateTime.Now.Subtract(timeStartedCalculation), lowestOccurencesOfTeamsPlayingConsecutiveMatches) == false;
 
-            uint maxConsecutiveMatchesByAnyTeam = MaxConsecutiveMatchesByAnyTeam.Calculate(games);
+            uint maxConsecutiveMatchesByAnyTeam = MaxConsecutiveMatchesByAnyTeam.Calculate(new GameList(games));
             if (maxConsecutiveMatchesByAnyTeam < lowestMaxConsecutiveMatchesByAnyTeam)
             {
                 lowestMaxConsecutiveMatchesByAnyTeam = maxConsecutiveMatchesByAnyTeam;
@@ -68,7 +68,7 @@ namespace CanoePoloLeagueOrganiser
             else if (addCandidate == false && occurencesOfTeamsPlayingConsecutiveMatches > lowestOccurencesOfTeamsPlayingConsecutiveMatches)
                 return continuePermupotatering;
 
-            uint gamesNotPlayedBetweenFirstAndLast = GamesNotPlayedBetweenFirstAndLast.Calculate(games);
+            uint gamesNotPlayedBetweenFirstAndLast = GamesNotPlayedBetweenFirstAndLast.Calculate(new GameList(games));
             if (gamesNotPlayedBetweenFirstAndLast <= lowestGamesNotPlayedBetweenFirstAndLast)
             {
                 lowestGamesNotPlayedBetweenFirstAndLast = gamesNotPlayedBetweenFirstAndLast;

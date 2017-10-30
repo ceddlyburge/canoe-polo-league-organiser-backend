@@ -10,29 +10,29 @@ namespace CanoePoloLeagueOrganiser
 {
     public class GamesNotPlayedBetweenFirstAndLast
     {
-        IEnumerable<Game> Games { get; set; }
+        GameList GameList { get; set; }
 
-        public uint Calculate(IEnumerable<Game> games)
+        public uint Calculate(GameList gameList)
         {
-            Requires(games != null);
+            Requires(gameList != null);
 
-            Games = games;
+            GameList = gameList;
 
-            return (uint)Teams.Sum(team => GamesNotPlayedBetweenFirstAndLastByTeam(team));
+            return (uint)GameList.Teams.Sum(team => GamesNotPlayedBetweenFirstAndLastByTeam(team.Name));
         }
 
-        IEnumerable<string> Teams =>
-            HomeTeams
-            .Concat(AwayTeams)
-            .Distinct();
+        //IEnumerable<string> Teams =>
+        //    HomeTeams
+        //    .Concat(AwayTeams)
+        //    .Distinct();
 
         uint GamesNotPlayedBetweenFirstAndLastByTeam(string team) =>
-            new GamesNotPlayedBetweenFirstAndLastByTeam(Games, team).Calculate();
+            new GamesNotPlayedBetweenFirstAndLastByTeam(GameList.Games, team).Calculate();
 
-        IEnumerable<string> HomeTeams =>
-            Games.Select(game => game.HomeTeam.Name);
+        //IEnumerable<string> HomeTeams =>
+        //    GameList.Select(game => game.HomeTeam.Name);
 
-        IEnumerable<string> AwayTeams =>
-            Games.Select(game => game.AwayTeam.Name);
+        //IEnumerable<string> AwayTeams =>
+        //    GameList.Select(game => game.AwayTeam.Name);
     }
 }
