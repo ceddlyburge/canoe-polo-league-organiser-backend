@@ -2,9 +2,9 @@
 {
     public class MutableGame
     {
-        public string homeTeam { get; set; }
-        public bool homeTeamPlayingConsecutively { get; set; }
-        public string awayTeam { get; set; }
-        public bool awayTeamPlayingConsecutively { get; set; }
+        public string HomeTeam { get; set; }
+        public bool HomeTeamPlayingConsecutively { get; set; }
+        public string AwayTeam { get; set; }
+        public bool AwayTeamPlayingConsecutively { get; set; }
     }
 }

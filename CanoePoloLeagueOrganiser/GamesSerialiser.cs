@@ -1,40 +1,47 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CanoePoloLeagueOrganiser
 {
     public class GamesSerialiser
     {
-        public string Serialise(IEnumerable<Game> games)
-        {
-            return JsonConvert.SerializeObject(
-                games.Select(
-                    g => new MutableGame
-                    {
-                        homeTeam = g.HomeTeam.Name,
-                        awayTeam = g.AwayTeam.Name,
-                        homeTeamPlayingConsecutively = g.HomeTeamPlayingConsecutively,
-                        awayTeamPlayingConsecutively = g.AwayTeamPlayingConsecutively
-                    }));
-        }
+        public string Serialise(IEnumerable<Game> games) =>
+            JsonConvert
+                .SerializeObject(
+                    CreateMutableGames(games));
 
-        public List<Game> DeSerialise(string json)
-        {
-            return JsonConvert
-                .DeserializeObject<List<MutableGame>>(json)
-                .Select(
-                    g => new Game(
-                        homeTeam: new Team(g.homeTeam),
-                        awayTeam: new Team(g.awayTeam),
-                        homeTeamPlayingConsecutively: g.homeTeamPlayingConsecutively,
-                        awayTeamPlayingConsecutively: g.awayTeamPlayingConsecutively)
-                     )
+        public List<Game> DeSerialise(string json) =>
+            JsonConvert
+                .DeserializeObject<List<MutableGame>>(json, ConvertPascalCaseToCamelCase())
+                .Select(g => CreateGame(g))
                  .ToList();
-        }
+
+        static IEnumerable<MutableGame> CreateMutableGames(IEnumerable<Game> games) =>
+            games.Select(g => CreateMutableGame(g));
+
+        static MutableGame CreateMutableGame(Game g) =>
+            new MutableGame
+            {
+                HomeTeam = g.HomeTeam.Name,
+                AwayTeam = g.AwayTeam.Name,
+                HomeTeamPlayingConsecutively = g.HomeTeamPlayingConsecutively,
+                AwayTeamPlayingConsecutively = g.AwayTeamPlayingConsecutively
+            };
+
+        static Game CreateGame(MutableGame g) =>
+            new Game(
+                homeTeam: new Team(g.HomeTeam),
+                awayTeam: new Team(g.AwayTeam),
+                homeTeamPlayingConsecutively: g.HomeTeamPlayingConsecutively,
+                awayTeamPlayingConsecutively: g.AwayTeamPlayingConsecutively);
+
+        JsonSerializerSettings ConvertPascalCaseToCamelCase() =>
+            new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+
     }
 }
