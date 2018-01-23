@@ -67,6 +67,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="MaxConsecutiveMatchesByAnyTeamTests.cs" />
     <Compile Include="OptimalGameOrderTests.cs" />
     <Compile Include="GameListSerialisationTests.cs" />
     <Compile Include="MarkConsecutiveGamesTests.cs" />
