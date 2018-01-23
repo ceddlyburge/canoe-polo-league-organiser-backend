@@ -21,18 +21,7 @@ namespace CanoePoloLeagueOrganiser
             return (uint)GameList.Teams.Sum(team => GamesNotPlayedBetweenFirstAndLastByTeam(team.Name));
         }
 
-        //IEnumerable<string> Teams =>
-        //    HomeTeams
-        //    .Concat(AwayTeams)
-        //    .Distinct();
-
         uint GamesNotPlayedBetweenFirstAndLastByTeam(string team) =>
             new GamesNotPlayedBetweenFirstAndLastByTeam(GameList.Games, team).Calculate();
-
-        //IEnumerable<string> HomeTeams =>
-        //    GameList.Select(game => game.HomeTeam.Name);
-
-        //IEnumerable<string> AwayTeams =>
-        //    GameList.Select(game => game.AwayTeam.Name);
     }
 }
