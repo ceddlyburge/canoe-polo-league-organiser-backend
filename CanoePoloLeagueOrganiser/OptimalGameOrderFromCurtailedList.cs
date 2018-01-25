@@ -59,7 +59,7 @@ namespace CanoePoloLeagueOrganiser
             else if (maxConsecutiveMatchesByAnyTeam > lowestMaxConsecutiveMatchesByAnyTeam)
                 return continuePermupotatering;
 
-            uint occurencesOfTeamsPlayingConsecutiveMatches = OccurencesOfTeamsPlayingConsecutiveMatches.Calculate(games);
+            uint occurencesOfTeamsPlayingConsecutiveMatches = OccurencesOfTeamsPlayingConsecutiveMatches.Calculate(new GameList(games));
             if (occurencesOfTeamsPlayingConsecutiveMatches < lowestOccurencesOfTeamsPlayingConsecutiveMatches)
             {
                 lowestOccurencesOfTeamsPlayingConsecutiveMatches = occurencesOfTeamsPlayingConsecutiveMatches;
