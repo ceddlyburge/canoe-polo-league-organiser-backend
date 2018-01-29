@@ -47,8 +47,10 @@
     <Compile Include="GamesNotPlayedBetweenFirstAndLast.cs" />
     <Compile Include="GamesNotPlayedBetweenFirstAndLastByTeam.cs" />
     <Compile Include="MaxConsecutiveMatchesByAnyTeam.cs" />
+    <Compile Include="MaxConsecutiveMatchesByAnyTeamSlowButObvious.cs" />
     <Compile Include="MutableGame.cs" />
     <Compile Include="OccurencesOfTeamsPlayingConsecutiveMatches.cs" />
+    <Compile Include="OccurencesOfTeamsPlayingConsecutiveMatchesSlowButObvious.cs" />
     <Compile Include="OptimalGameOrder.cs" />
     <Compile Include="GameOrderCandidate.cs" />
     <Compile Include="GamesSerialiser.cs" />
@@ -58,6 +60,7 @@
     <Compile Include="MarkConsecutiveGames.cs" />
     <Compile Include="Permupotater.cs" />
     <Compile Include="PragmatisationLevel.cs" />
+    <Compile Include="RubyInspiredListFunctions.cs" />
     <Compile Include="TenSecondPragmatiser.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

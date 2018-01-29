@@ -49,7 +49,7 @@ namespace CanoePoloLeagueOrganiserTests
                 new List<Game> {
                  new Game("Braintree", "MAD"),
                  new Game("Castle", "Battersea"),
-                 new Game("Avon", "Castle"),
+                 new Game("Castle", "Avon"),
              });
 
             var slow = new OccurencesOfTeamsPlayingConsecutiveMatchesSlowButObvious().Calculate(games);
