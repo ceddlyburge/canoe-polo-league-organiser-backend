@@ -50,7 +50,7 @@ namespace CanoePoloLeagueOrganiser
             bool continuePermupotatering = (permutationCount++ % 1000 != 0)
                  || Pragmatiser.AcceptableSolution(DateTime.Now.Subtract(timeStartedCalculation), lowestOccurencesOfTeamsPlayingConsecutiveMatches) == false;
 
-            uint maxConsecutiveMatchesByAnyTeam = MaxConsecutiveMatchesByAnyTeam.Calculate(new GameList(games));
+            uint maxConsecutiveMatchesByAnyTeam = MaxConsecutiveMatchesByAnyTeam.Calculate(new PlayList(games));
             if (maxConsecutiveMatchesByAnyTeam < lowestMaxConsecutiveMatchesByAnyTeam)
             {
                 lowestMaxConsecutiveMatchesByAnyTeam = maxConsecutiveMatchesByAnyTeam;
@@ -59,7 +59,7 @@ namespace CanoePoloLeagueOrganiser
             else if (maxConsecutiveMatchesByAnyTeam > lowestMaxConsecutiveMatchesByAnyTeam)
                 return continuePermupotatering;
 
-            uint occurencesOfTeamsPlayingConsecutiveMatches = OccurencesOfTeamsPlayingConsecutiveMatches.Calculate(new GameList(games));
+            uint occurencesOfTeamsPlayingConsecutiveMatches = OccurencesOfTeamsPlayingConsecutiveMatches.Calculate(new PlayList(games));
             if (occurencesOfTeamsPlayingConsecutiveMatches < lowestOccurencesOfTeamsPlayingConsecutiveMatches)
             {
                 lowestOccurencesOfTeamsPlayingConsecutiveMatches = occurencesOfTeamsPlayingConsecutiveMatches;
@@ -68,7 +68,7 @@ namespace CanoePoloLeagueOrganiser
             else if (addCandidate == false && occurencesOfTeamsPlayingConsecutiveMatches > lowestOccurencesOfTeamsPlayingConsecutiveMatches)
                 return continuePermupotatering;
 
-            uint gamesNotPlayedBetweenFirstAndLast = GamesNotPlayedBetweenFirstAndLast.Calculate(new GameList(games));
+            uint gamesNotPlayedBetweenFirstAndLast = GamesNotPlayedBetweenFirstAndLast.Calculate(new PlayList(games));
             if (gamesNotPlayedBetweenFirstAndLast <= lowestGamesNotPlayedBetweenFirstAndLast)
             {
                 lowestGamesNotPlayedBetweenFirstAndLast = gamesNotPlayedBetweenFirstAndLast;

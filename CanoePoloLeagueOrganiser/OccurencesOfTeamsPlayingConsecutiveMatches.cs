@@ -8,13 +8,13 @@ namespace CanoePoloLeagueOrganiser
         string lastAwayTeam;
 
 
-        public uint Calculate(GameList games)
+        public uint Calculate(PlayList playList)
         {
-            Requires(games != null);
+            Requires(playList != null);
 
             uint occurences = 0;
 
-            foreach (var game in games.Games)
+            foreach (var game in playList.Games)
             {
                 if (game.Playing(lastHomeTeam) == true) occurences++;
                 if (game.Playing(lastAwayTeam) == true) occurences++;

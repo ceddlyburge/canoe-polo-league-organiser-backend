@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace CanoePoloLeagueOrganiser
 {
-    public class GameList
+    public class PlayList
     {
         public IReadOnlyList<Team> Teams { get; }
         public IReadOnlyList<Game> Games { get; }
 
-        public GameList(IReadOnlyList<Game> games)
+        public PlayList(IReadOnlyList<Game> games)
         {
             Requires(games != null);
 

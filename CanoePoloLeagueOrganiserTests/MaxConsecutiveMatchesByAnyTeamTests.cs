@@ -13,14 +13,14 @@ namespace CanoePoloLeagueOrganiserTests
         [Fact]
         public void TwoInRowAtStart()
         {
-            var games = new GameList(
+            var playList = new PlayList(
                 new List<Game> {
                  new Game("Castle", "Battersea"),
                  new Game("Avon", "Castle"),
              });
 
-            var slow = new MaxConsecutiveMatchesByAnyTeamSlowButObvious().Calculate(games);
-            var fast = new MaxConsecutiveMatchesByAnyTeam().Calculate(games);
+            var slow = new MaxConsecutiveMatchesByAnyTeamSlowButObvious().Calculate(playList);
+            var fast = new MaxConsecutiveMatchesByAnyTeam().Calculate(playList);
 
             Assert.Equal((uint) 2, slow);
             Assert.Equal((uint) 2, fast);
@@ -29,15 +29,15 @@ namespace CanoePoloLeagueOrganiserTests
         [Fact]
         public void TwoInRowAtEnd()
         {
-            var games = new GameList(
+            var playList = new PlayList(
                 new List<Game> {
                  new Game("Braintree", "MAD"),
                  new Game("Castle", "Battersea"),
                  new Game("Avon", "Castle"),
              });
 
-            var slow = new MaxConsecutiveMatchesByAnyTeamSlowButObvious().Calculate(games);
-            var fast = new MaxConsecutiveMatchesByAnyTeam().Calculate(games);
+            var slow = new MaxConsecutiveMatchesByAnyTeamSlowButObvious().Calculate(playList);
+            var fast = new MaxConsecutiveMatchesByAnyTeam().Calculate(playList);
 
             Assert.Equal((uint)2, slow);
             Assert.Equal((uint)2, fast);
@@ -46,7 +46,7 @@ namespace CanoePoloLeagueOrganiserTests
         [Fact]
         public void ThreeInRowInMiddle()
         {
-            var games = new GameList(
+            var playList = new PlayList(
                 new List<Game> {
                  new Game("Braintree", "MAD"),
                  new Game("Castle", "Battersea"),
@@ -55,8 +55,8 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Braintree", "MAD"),
              });
 
-            var slow = new MaxConsecutiveMatchesByAnyTeamSlowButObvious().Calculate(games);
-            var fast = new MaxConsecutiveMatchesByAnyTeam().Calculate(games);
+            var slow = new MaxConsecutiveMatchesByAnyTeamSlowButObvious().Calculate(playList);
+            var fast = new MaxConsecutiveMatchesByAnyTeam().Calculate(playList);
 
             Assert.Equal((uint)3, slow);
             Assert.Equal((uint)3, fast);

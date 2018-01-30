@@ -8,9 +8,9 @@ namespace CanoePoloLeagueOrganiser
 {
     public class MaxConsecutiveMatchesByAnyTeam
     {
-        public uint Calculate(GameList games)
+        public uint Calculate(PlayList playList)
         {
-            Requires(games != null);
+            Requires(playList != null);
 
             uint maxConsecutiveGames = 1;
             uint lastHomeTeamConsecutiveGames = 0;
@@ -18,7 +18,7 @@ namespace CanoePoloLeagueOrganiser
             string lastHomeTeam = null;
             string lastAwayTeam = null;
 
-            foreach (var game in games.Games)
+            foreach (var game in playList.Games)
             {
                 lastHomeTeamConsecutiveGames = (game.Playing(lastHomeTeam) == true) ? lastHomeTeamConsecutiveGames + 1 : 1;
                 lastAwayTeamConsecutiveGames = (game.Playing(lastAwayTeam) == true) ? lastAwayTeamConsecutiveGames + 1 : 1;

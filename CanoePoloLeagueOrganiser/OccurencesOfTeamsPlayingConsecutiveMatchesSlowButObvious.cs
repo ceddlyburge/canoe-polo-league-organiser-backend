@@ -6,11 +6,11 @@ namespace CanoePoloLeagueOrganiser
 {
     public class OccurencesOfTeamsPlayingConsecutiveMatchesSlowButObvious
     {
-        public uint Calculate(GameList games)
+        public uint Calculate(PlayList playList)
         {
-            Requires(games != null);
+            Requires(playList != null);
 
-            return games.Games.EachCons2().Aggregate((uint)0,
+            return playList.Games.EachCons2().Aggregate((uint)0,
                 (uint occurrences, Tuple<Game, Game> games2) =>
                 {
                     var thisGame = games2.Item1;

@@ -6,26 +6,26 @@ namespace CanoePoloLeagueOrganiser
 {
     public class MaxConsecutiveMatchesByAnyTeamSlowButObvious
     {
-        GameList GameList { get; set; }
+        PlayList PlayList { get; set; }
 
-        public uint Calculate(GameList gameList)
+        public uint Calculate(PlayList playList)
         {
-            Requires(gameList != null);
-            GameList = gameList;
+            Requires(playList != null);
+            PlayList = playList;
 
-            return GameList.Teams.Max(team => MaxConsecutiveGamesForTeam(team.Name));
+            return PlayList.Teams.Max(team => MaxConsecutiveGamesForTeam(team.Name));
         }
 
         uint MaxConsecutiveGamesForTeam(string team) =>
             ConsecutiveGamesForTeamFromEachIndex(team).Max();
 
         IEnumerable<uint> ConsecutiveGamesForTeamFromEachIndex(string team) =>
-            Enumerable.Range(0, GameList.Games.Count)
+            Enumerable.Range(0, PlayList.Games.Count)
                 .Select(index => ConsecutiveGamesForTeamFromIndex(team, index));
 
         uint ConsecutiveGamesForTeamFromIndex(string team, int index) =>
             (uint)
-                GameList.Games
+                PlayList.Games
                 .Skip(index)
                 .TakeWhile(game => game.Playing(team))
                 .Count();

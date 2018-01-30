@@ -8,7 +8,7 @@ namespace CanoePoloLeagueOrganiser
 {
     public interface IOptimalGameOrder
     {
-        GameOrderCandidate CalculateOriginalGameOrder(IReadOnlyList<Game> games);
+        GameOrderCandidate CalculateOriginalGameOrder(PlayList playList);
         GameOrderCalculation OptimiseGameOrder(IReadOnlyList<Game> games);
     }
 }

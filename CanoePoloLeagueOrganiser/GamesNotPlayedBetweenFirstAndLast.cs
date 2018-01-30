@@ -10,18 +10,18 @@ namespace CanoePoloLeagueOrganiser
 {
     public class GamesNotPlayedBetweenFirstAndLast
     {
-        GameList GameList { get; set; }
+        PlayList PlayList { get; set; }
 
-        public uint Calculate(GameList gameList)
+        public uint Calculate(PlayList playList)
         {
-            Requires(gameList != null);
+            Requires(playList != null);
 
-            GameList = gameList;
+            this.PlayList = playList;
 
-            return (uint)GameList.Teams.Sum(team => GamesNotPlayedBetweenFirstAndLastByTeam(team.Name));
+            return (uint)this.PlayList.Teams.Sum(team => GamesNotPlayedBetweenFirstAndLastByTeam(team.Name));
         }
 
         uint GamesNotPlayedBetweenFirstAndLastByTeam(string team) =>
-            new GamesNotPlayedBetweenFirstAndLastByTeam(GameList.Games, team).Calculate();
+            new GamesNotPlayedBetweenFirstAndLastByTeam(PlayList.Games, team).Calculate();
     }
 }

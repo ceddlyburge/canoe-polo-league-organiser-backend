@@ -17,14 +17,16 @@ namespace CanoePoloLeagueOrganiser
             Pragmatiser = pragmatiser;
         }
 
-        public GameOrderCandidate CalculateOriginalGameOrder(IReadOnlyList<Game> games)
+        public GameOrderCandidate CalculateOriginalGameOrder(PlayList playList)
         {
-            Requires(games != null);
+            Requires(playList != null);
             Ensures(Result<GameOrderCandidate>() != null);
 
             return new GameOrderCandidate(
-                new MarkConsecutiveGames().MarkTeamsPlayingConsecutively(games),
-                new OccurencesOfTeamsPlayingConsecutiveMatches().Calculate(new GameList(games)), new MaxConsecutiveMatchesByAnyTeam().Calculate(new GameList(games)), new GamesNotPlayedBetweenFirstAndLast().Calculate(new GameList(games)));
+                new MarkConsecutiveGames().MarkTeamsPlayingConsecutively(playList.Games),
+                new OccurencesOfTeamsPlayingConsecutiveMatches().Calculate(playList), 
+                new MaxConsecutiveMatchesByAnyTeam().Calculate(playList), 
+                new GamesNotPlayedBetweenFirstAndLast().Calculate(playList));
         }
 
         public GameOrderCalculation OptimiseGameOrder(IReadOnlyList<Game> games)
@@ -32,12 +34,23 @@ namespace CanoePoloLeagueOrganiser
             Requires(games != null);
             Ensures(Result<GameOrderCalculation>() != null);
 
-            var gameOrder = new OptimalGameOrderFromCurtailedList(games, Pragmatiser, new Permupotater<Game>(games.ToArray(), new CurtailWhenATeamPlaysTwiceInARow(games).Curtail)).CalculateGameOrder();
+            var gameOrder = new OptimalGameOrderFromCurtailedList(
+                games, 
+                Pragmatiser, 
+                new Permupotater<Game>(games.ToArray(), new CurtailWhenATeamPlaysTwiceInARow(games).Curtail)
+                ).CalculateGameOrder();
 
             if (gameOrder.OptimisedGameOrder == null)
-                gameOrder = new OptimalGameOrderFromCurtailedList(games, Pragmatiser, new Permupotater<Game>(games.ToArray(), NoCurtailment)).CalculateGameOrder();
+                gameOrder = new OptimalGameOrderFromCurtailedList(
+                    games, 
+                    Pragmatiser, 
+                    new Permupotater<Game>(games.ToArray(), NoCurtailment)
+                    ).CalculateGameOrder();
 
-            return new GameOrderCalculation(gameOrder.OptimisedGameOrder, gameOrder.PragmatisationLevel, gameOrder.OptimisationMessage);
+            return new GameOrderCalculation(
+                gameOrder.OptimisedGameOrder, 
+                gameOrder.PragmatisationLevel, 
+                gameOrder.OptimisationMessage);
         }
 
         bool NoCurtailment(int[] gameIndexes, int length) =>
