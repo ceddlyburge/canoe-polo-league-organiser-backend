@@ -4,16 +4,13 @@ namespace CanoePoloLeagueOrganiser
 {
     public class GameOrderCalculation : GameOrderPossiblyNullCalculation
     {
-        public GameOrderCalculation(
-            GameOrderCandidate optimisedGameOrder, 
-            PragmatisationLevel pragmatisationLevel, 
-            string optimisationMessage) : 
+        public GameOrderCalculation(GameOrderPossiblyNullCalculation gameOrderPossiblyNullCalculation) : 
             base(
-                optimisedGameOrder, 
-                pragmatisationLevel, 
-                optimisationMessage)
+                gameOrderPossiblyNullCalculation.OptimisedGameOrder,
+                gameOrderPossiblyNullCalculation.PragmatisationLevel,
+                gameOrderPossiblyNullCalculation.OptimisationMessage)
         {
-            Requires(optimisedGameOrder != null);
+            Requires(gameOrderPossiblyNullCalculation.OptimisedGameOrder != null);
         }
     }
 }

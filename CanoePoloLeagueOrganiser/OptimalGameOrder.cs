@@ -7,26 +7,17 @@ using System.Threading.Tasks;
 
 namespace CanoePoloLeagueOrganiser
 {
-    public class OptimalGameOrder : IOptimalGameOrder
+    public class OptimalGameOrder
     {
-        IPragmatiser Pragmatiser { get; }
+        readonly IPragmatiser pragmatiser;
+        IReadOnlyList<Game> games;
+        Func<int[], int, bool> curtailWhenTeamPlaysConsecutively;
 
         public OptimalGameOrder(IPragmatiser pragmatiser)
         {
             Requires(pragmatiser != null);
-            Pragmatiser = pragmatiser;
-        }
 
-        public GameOrderCandidate CalculateOriginalGameOrder(PlayList playList)
-        {
-            Requires(playList != null);
-            Ensures(Result<GameOrderCandidate>() != null);
-
-            return new GameOrderCandidate(
-                new MarkConsecutiveGames().MarkTeamsPlayingConsecutively(playList.Games),
-                new OccurencesOfTeamsPlayingConsecutiveMatches().Calculate(playList), 
-                new MaxConsecutiveMatchesByAnyTeam().Calculate(playList), 
-                new GamesNotPlayedBetweenFirstAndLast().Calculate(playList));
+            this.pragmatiser = pragmatiser;
         }
 
         public GameOrderCalculation OptimiseGameOrder(IReadOnlyList<Game> games)
@@ -34,24 +25,52 @@ namespace CanoePoloLeagueOrganiser
             Requires(games != null);
             Ensures(Result<GameOrderCalculation>() != null);
 
-            var gameOrder = new OptimalGameOrderFromCurtailedList(
-                games, 
-                Pragmatiser, 
-                new Permupotater<Game>(games.ToArray(), new CurtailWhenATeamPlaysTwiceInARow(games).Curtail)
-                ).CalculateGameOrder();
+            Initialise(games);
 
-            if (gameOrder.OptimisedGameOrder == null)
-                gameOrder = new OptimalGameOrderFromCurtailedList(
-                    games, 
-                    Pragmatiser, 
-                    new Permupotater<Game>(games.ToArray(), NoCurtailment)
-                    ).CalculateGameOrder();
-
-            return new GameOrderCalculation(
-                gameOrder.OptimisedGameOrder, 
-                gameOrder.PragmatisationLevel, 
-                gameOrder.OptimisationMessage);
+            return GameOrder();
         }
+
+        void Initialise(IReadOnlyList<Game> games)
+        {
+            this.games = games;
+
+            curtailWhenTeamPlaysConsecutively = ExpensivelyGetTeamPlayingConsecutivelyCurtailer();
+        }
+
+        GameOrderCalculation GameOrder()
+        {
+            var possiblyNullGameOrder = PossiblyNullGameOrder();
+
+            // This is defensive programming: this shouldn't happen
+            if (possiblyNullGameOrder.OptimisedGameOrderAvailable == false)
+                throw new PlayListException("Unexpected problem: Unable to find an optimised play list");
+
+            return new GameOrderCalculation(possiblyNullGameOrder);
+        }
+
+        GameOrderPossiblyNullCalculation PossiblyNullGameOrder()
+        {
+            // If we chop out all the permutations where a team is playing twice in a row, the calculation has a lot less work to do and is hence a lot faster
+            var curtailedGameOrder = GameOrder(curtailWhenTeamPlaysConsecutively);
+
+            if (curtailedGameOrder.OptimisedGameOrderAvailable)
+                return curtailedGameOrder;
+
+            // However, possibly all permutations involve teams playing twice in a row, in which case we still want to return something.
+            return GameOrder(NoCurtailment);
+        }
+
+        GameOrderPossiblyNullCalculation GameOrder(Func<int[], int, bool> curtailer)
+        {
+            return new OptimalGameOrderFromCurtailedList(
+                games,
+                pragmatiser,
+                new Permupotater<Game>(games.ToArray(), curtailer)
+                ).CalculateGameOrder();
+        }
+
+        Func<int[], int, bool> ExpensivelyGetTeamPlayingConsecutivelyCurtailer() =>
+            new CurtailWhenATeamPlaysTwiceInARow(games).Curtail;
 
         bool NoCurtailment(int[] gameIndexes, int length) =>
             false;

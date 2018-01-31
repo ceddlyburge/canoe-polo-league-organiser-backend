@@ -5,6 +5,7 @@
         public GameOrderCandidate OptimisedGameOrder { get; }
         public PragmatisationLevel PragmatisationLevel { get; }
         public string OptimisationMessage { get; }
+        
 
         public GameOrderPossiblyNullCalculation(
             GameOrderCandidate optimisedGameOrder, 
@@ -15,5 +16,8 @@
             PragmatisationLevel = pragmatisationLevel;
             OptimisedGameOrder = optimisedGameOrder;
         }
+
+        public bool OptimisedGameOrderAvailable =>
+            OptimisedGameOrder != null;
     }
 }
