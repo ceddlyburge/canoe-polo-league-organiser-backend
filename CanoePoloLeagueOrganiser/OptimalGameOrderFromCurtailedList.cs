@@ -7,25 +7,10 @@ using System.Threading.Tasks;
 
 namespace CanoePoloLeagueOrganiser
 {
+
+
     public class OptimalGameOrderFromCurtailedList
     {
-
-        public OptimalGameOrderFromCurtailedList(IReadOnlyList<Game> games, IPragmatiser pragmatiser, IPermupotater<Game> permupotater)
-        {
-            Requires(pragmatiser != null);
-            Requires(permupotater != null);
-            Requires(games != null);
-
-            Permupotater = permupotater;
-            Games = games; 
-            Candidates = new List<GameOrderCandidate>();
-            Marker = new MarkConsecutiveGames();
-            Pragmatiser = pragmatiser;
-            MaxConsecutiveMatchesByAnyTeam = new MaxConsecutiveMatchesByAnyTeam();
-            GamesNotPlayedBetweenFirstAndLast = new GamesNotPlayedBetweenFirstAndLast();
-            OccurencesOfTeamsPlayingConsecutiveMatches = new OccurencesOfTeamsPlayingConsecutiveMatches();
-        }
-
         IPermupotater<Game> Permupotater { get; }
         IReadOnlyList<Game> Games { get; }
         IPragmatiser Pragmatiser { get; }
@@ -33,65 +18,53 @@ namespace CanoePoloLeagueOrganiser
         List<GameOrderCandidate> Candidates { get; }
         MarkConsecutiveGames Marker { get; }
 
-        // used in Callback
-        MaxConsecutiveMatchesByAnyTeam MaxConsecutiveMatchesByAnyTeam { get; }
-        GamesNotPlayedBetweenFirstAndLast GamesNotPlayedBetweenFirstAndLast { get; }
-        OccurencesOfTeamsPlayingConsecutiveMatches OccurencesOfTeamsPlayingConsecutiveMatches { get; }
-        uint lowestMaxConsecutiveMatchesByAnyTeam;
-        uint lowestOccurencesOfTeamsPlayingConsecutiveMatches;
-        uint lowestGamesNotPlayedBetweenFirstAndLast;
         uint permutationCount;
         DateTime timeStartedCalculation;
+        Temp playlistAnalyser;
+
+        public OptimalGameOrderFromCurtailedList(
+            IReadOnlyList<Game> games, 
+            IPragmatiser pragmatiser, 
+            IPermupotater<Game> permupotater)
+        {
+            Requires(pragmatiser != null);
+            Requires(permupotater != null);
+            Requires(games != null);
+
+            Permupotater = permupotater;
+            Games = games; 
+            Pragmatiser = pragmatiser;
+
+            Candidates = new List<GameOrderCandidate>();
+            playlistAnalyser = new Temp();
+            Marker = new MarkConsecutiveGames();
+        }
 
         bool Callback(Game[] games)
         {
-            bool addCandidate = false;
+            if (AcceptableSolutionExists())
+                return false;
 
-            bool continuePermupotatering = (permutationCount++ % 1000 != 0)
-                 || Pragmatiser.AcceptableSolution(DateTime.Now.Subtract(timeStartedCalculation), lowestOccurencesOfTeamsPlayingConsecutiveMatches) == false;
+            playlistAnalyser.Stuff(new PlayList(games), Candidates);
 
-            uint maxConsecutiveMatchesByAnyTeam = MaxConsecutiveMatchesByAnyTeam.Calculate(new PlayList(games));
-            if (maxConsecutiveMatchesByAnyTeam < lowestMaxConsecutiveMatchesByAnyTeam)
-            {
-                lowestMaxConsecutiveMatchesByAnyTeam = maxConsecutiveMatchesByAnyTeam;
-                addCandidate = true;
-            }
-            else if (maxConsecutiveMatchesByAnyTeam > lowestMaxConsecutiveMatchesByAnyTeam)
-                return continuePermupotatering;
+            return true;
+        }
 
-            uint occurencesOfTeamsPlayingConsecutiveMatches = OccurencesOfTeamsPlayingConsecutiveMatches.Calculate(new PlayList(games));
-            if (occurencesOfTeamsPlayingConsecutiveMatches < lowestOccurencesOfTeamsPlayingConsecutiveMatches)
-            {
-                lowestOccurencesOfTeamsPlayingConsecutiveMatches = occurencesOfTeamsPlayingConsecutiveMatches;
-                addCandidate = true;
-            }
-            else if (addCandidate == false && occurencesOfTeamsPlayingConsecutiveMatches > lowestOccurencesOfTeamsPlayingConsecutiveMatches)
-                return continuePermupotatering;
-
-            uint gamesNotPlayedBetweenFirstAndLast = GamesNotPlayedBetweenFirstAndLast.Calculate(new PlayList(games));
-            if (gamesNotPlayedBetweenFirstAndLast <= lowestGamesNotPlayedBetweenFirstAndLast)
-            {
-                lowestGamesNotPlayedBetweenFirstAndLast = gamesNotPlayedBetweenFirstAndLast;
-                //dont need to set addCandidate = true here, as it is not used herafter
-            }
-            else if (addCandidate == false)
-                return continuePermupotatering;
-
-            // we have found a new candidate so add it
-            // can optimise by only MarkTeamsPlayingConsecutively on the best result but do this later. Actually not many candidates get added so it may not be worth it
-            Candidates.Add(new GameOrderCandidate(Marker.MarkTeamsPlayingConsecutively(games), occurencesOfTeamsPlayingConsecutiveMatches, maxConsecutiveMatchesByAnyTeam, gamesNotPlayedBetweenFirstAndLast));
-
-            return continuePermupotatering;
+        bool AcceptableSolutionExists()
+        {
+            return 
+                (permutationCount++ % 1000 == 0)
+                && Pragmatiser.AcceptableSolution(
+                    DateTime.Now.Subtract(timeStartedCalculation),
+                    playlistAnalyser.OptimalPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches);
         }
 
         public GameOrderPossiblyNullCalculation CalculateGameOrder()
         {
             Ensures(Result<GameOrderPossiblyNullCalculation>() != null);
 
-            lowestMaxConsecutiveMatchesByAnyTeam = uint.MaxValue;
-            lowestOccurencesOfTeamsPlayingConsecutiveMatches = uint.MaxValue;
-            lowestGamesNotPlayedBetweenFirstAndLast = uint.MaxValue;
             Candidates.Clear();
+            playlistAnalyser = new Temp();
             permutationCount = 0;
             timeStartedCalculation = DateTime.Now;
 

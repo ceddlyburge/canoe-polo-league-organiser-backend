@@ -165,7 +165,7 @@ namespace CanoePoloLeagueOrganiserTests
 
             var gameOrder = new OptimalGameOrderFromCurtailedList(games, new TenSecondPragmatiser(), EnumerateAllPermutations(games)).CalculateGameOrder();
 
-            // allow it an extra second to finish up or whatever. It actually finished in two seconds as it finds an acceptable solution earlier.
+            // allow it an extra second to finish up or whatever. 
             Assert.True(DateTime.Now.Subtract(dateStarted) < TimeSpan.FromSeconds(11));
             Assert.NotEqual(PragmatisationLevel.Perfect, gameOrder.PragmatisationLevel);
             Assert.False(string.IsNullOrEmpty(gameOrder.OptimisationMessage));
