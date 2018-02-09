@@ -52,11 +52,11 @@ namespace CanoePoloLeagueOrganiser
 
         bool AcceptableSolutionExists()
         {
-            return 
+            return
                 (permutationCount++ % 1000 == 0)
                 && Pragmatiser.AcceptableSolution(
                     DateTime.Now.Subtract(timeStartedCalculation),
-                    playlistAnalyser.OptimalPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches);
+                    playlistAnalyser.OptimalPlayListMetrics?.OccurencesOfTeamsPlayingConsecutiveMatches ?? uint.MaxValue);
         }
 
         public GameOrderPossiblyNullCalculation CalculateGameOrder()
