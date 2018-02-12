@@ -11,9 +11,9 @@ namespace CanoePoloLeagueOrganiser
         public IGameOrderMetrics OptimalPlayListMetrics =>
             optimalPlayListMetrics;
 
-        OptimalGameOrderMetrics optimalPlayListMetrics;
+        GameOrderMetrics optimalPlayListMetrics;
         PlayList playList;
-        GameOrderMetrics partialPlayListMetrics;
+        PartialGameOrderMetrics partialPlayListMetrics;
 
         public Temp()
         {
@@ -25,82 +25,52 @@ namespace CanoePoloLeagueOrganiser
             Initialise(playList);
             // Functional inspired code
             // It calculates each metric, and then only continues on if the metrics so far are as good or better than the current best (this saves unecessary calculations)
-            // This means that it should also be in charge of choosing the optimal solution
-            // The current plan of ordering the results in a different class means that the logic of prioritising each metric is spread across two classes, and needs to be the same in both
+            // It has to be done in the same priority order to be any use, and hence duplicates the logic in GameOrderMetricsComparer, which is a shame. However, it will still work if the order is wrong, it just won't optimise out some of the calculations. I think this is as good a solutions as can be, but am leaving the comment here in case in prompts further ideas later.
             CalculateMaxConsecutiveMatchesByAnyTeam();
-            IfOptimal(CalculateOccurencesOfTeamsPlayingConsecutiveMatches);
-            IfOptimal(CalculateGamesNotPlayedBetweenFirstAndLast);
-            IfOptimal(UpdateOptimal);
-            IfOptimal(() => AddCandidate(candidates));
+            IfCouldBeOptimal(CalculateOccurencesOfTeamsPlayingConsecutiveMatches);
+            IfCouldBeOptimal(CalculateGamesNotPlayedBetweenFirstAndLast);
+            IfCouldBeOptimal(() => UpdateOptimal(candidates));
         }
 
         void Initialise(PlayList playList)
         {
             this.playList = playList;
 
-            partialPlayListMetrics = new GameOrderMetrics();
+            partialPlayListMetrics = new PartialGameOrderMetrics();
         }
 
-        void CalculateMaxConsecutiveMatchesByAnyTeam()
-        {
-            partialPlayListMetrics.MaxConsecutiveMatchesByAnyTeam = new MaxConsecutiveMatchesByAnyTeam().Calculate(playList);
-        }
-
-        void CalculateOccurencesOfTeamsPlayingConsecutiveMatches()
-        {
-            partialPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches = new OccurencesOfTeamsPlayingConsecutiveMatches().Calculate(playList);
-        }
-        void CalculateGamesNotPlayedBetweenFirstAndLast()
-        {
-            partialPlayListMetrics.GamesNotPlayedBetweenFirstAndLast = new GamesNotPlayedBetweenFirstAndLast().Calculate(playList);
-        }
-
-        void IfOptimal(Action performAction)
-        {
-            if (PotentiallyOptimal())
-                performAction();
-        }
-
-        bool PotentiallyOptimal()
+        bool CouldBeOptimal()
         {
             // if we haven't got an optimal play list yet, then anything is better
             if (optimalPlayListMetrics == null)
                 return true;
 
-
-            // the first order criteria is MaxConsecutiveMatchesByAnyTeam. Only in the case where this is a tie do we need to look at lower order metrics
-            if (partialPlayListMetrics.MaxConsecutiveMatchesByAnyTeam.HasValue == false)
-                return true;
-
-            if (partialPlayListMetrics.MaxConsecutiveMatchesByAnyTeam < optimalPlayListMetrics.MaxConsecutiveMatchesByAnyTeam)
-                return true;
-
-            if (partialPlayListMetrics.MaxConsecutiveMatchesByAnyTeam > optimalPlayListMetrics.MaxConsecutiveMatchesByAnyTeam)
-                return false;
-
-            // the second order criteria is OccurencesOfTeamsPlayingConsecutiveMatches. Only in the case where this is a tie do we need to look at lower order metrics
-            if (partialPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches.HasValue == false)
-                return true;
-
-            if (partialPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches < optimalPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches)
-                return true;
-
-            if (partialPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches > optimalPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches)
-                return false;
-
-            // the lowest order criteria is GamesNotPlayedBetweenFirstAndLast.
-            if (partialPlayListMetrics.GamesNotPlayedBetweenFirstAndLast.HasValue == false)
-                return true;
-
-            return partialPlayListMetrics.GamesNotPlayedBetweenFirstAndLast <=  optimalPlayListMetrics.GamesNotPlayedBetweenFirstAndLast;
+            return new GameOrderMetricsComparer().IsBetterOrCouldBe(optimalPlayListMetrics, partialPlayListMetrics);
         }
 
-        void UpdateOptimal()
+        void CalculateMaxConsecutiveMatchesByAnyTeam() =>
+            partialPlayListMetrics.MaxConsecutiveMatchesByAnyTeam = new MaxConsecutiveMatchesByAnyTeam().Calculate(playList);
+
+        void CalculateOccurencesOfTeamsPlayingConsecutiveMatches() =>
+            partialPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches = new OccurencesOfTeamsPlayingConsecutiveMatches().Calculate(playList);
+
+        void CalculateGamesNotPlayedBetweenFirstAndLast() =>
+            partialPlayListMetrics.GamesNotPlayedBetweenFirstAndLast = new GamesNotPlayedBetweenFirstAndLast().Calculate(playList);
+
+        void IfCouldBeOptimal(Action performAction)
         {
-            optimalPlayListMetrics = optimalPlayListMetrics ?? new OptimalGameOrderMetrics();
+            if (CouldBeOptimal())
+                performAction();
+        }
+
+        void UpdateOptimal(List<GameOrderCandidate> candidates)
+        {
+            optimalPlayListMetrics = optimalPlayListMetrics ?? new GameOrderMetrics();
             optimalPlayListMetrics.MaxConsecutiveMatchesByAnyTeam = partialPlayListMetrics.MaxConsecutiveMatchesByAnyTeam.Value;
             optimalPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches = partialPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches.Value;
             optimalPlayListMetrics.GamesNotPlayedBetweenFirstAndLast = partialPlayListMetrics.GamesNotPlayedBetweenFirstAndLast.Value;
+
+            AddCandidate(candidates);
         }
 
         void AddCandidate(List<GameOrderCandidate> candidates) =>

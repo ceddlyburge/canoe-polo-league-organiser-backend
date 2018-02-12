@@ -7,14 +7,14 @@
         uint GamesNotPlayedBetweenFirstAndLast { get; }
     }
 
-    public class GameOrderMetrics
+    public class PartialGameOrderMetrics
     {
         public uint? OccurencesOfTeamsPlayingConsecutiveMatches { get; set; }
         public uint? MaxConsecutiveMatchesByAnyTeam { get; set; }
         public uint? GamesNotPlayedBetweenFirstAndLast { get; set; }
     }
 
-    public class OptimalGameOrderMetrics : IGameOrderMetrics
+    public class GameOrderMetrics : IGameOrderMetrics
     {
         public uint OccurencesOfTeamsPlayingConsecutiveMatches { get; set; }
         public uint MaxConsecutiveMatchesByAnyTeam { get; set; }
