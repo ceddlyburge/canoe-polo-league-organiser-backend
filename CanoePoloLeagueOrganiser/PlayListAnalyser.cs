@@ -8,8 +8,9 @@ namespace CanoePoloLeagueOrganiser
 {
     public class PlayListAnalyser
     {
-        public IGameOrderMetrics OptimalPlayListMetrics => optimalPlayListMetrics;
-        public GameOrderCandidate OptimalGameOrder { get; private set; } 
+        public GameOrderCandidate OptimalGameOrder { get; private set; }
+        public uint CurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches => 
+            GetCurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches;
 
         GameOrderMetrics optimalPlayListMetrics;
         PlayList playList;
@@ -17,6 +18,8 @@ namespace CanoePoloLeagueOrganiser
 
         public PlayListAnalyser() =>
             optimalPlayListMetrics = null;
+
+        uint GetCurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches => optimalPlayListMetrics?.OccurencesOfTeamsPlayingConsecutiveMatches ?? uint.MaxValue;
 
         public void Analyse(PlayList playList)
         {
