@@ -8,19 +8,17 @@ namespace CanoePoloLeagueOrganiser
 {
     public class PlayListAnalyser
     {
-        public IGameOrderMetrics OptimalPlayListMetrics =>
-            optimalPlayListMetrics;
+        public IGameOrderMetrics OptimalPlayListMetrics => optimalPlayListMetrics;
+        public GameOrderCandidate OptimalGameOrder { get; private set; } 
 
         GameOrderMetrics optimalPlayListMetrics;
         PlayList playList;
         PartialGameOrderMetrics partialPlayListMetrics;
 
-        public PlayListAnalyser()
-        {
+        public PlayListAnalyser() =>
             optimalPlayListMetrics = null;
-        }
 
-        public void Analyse(PlayList playList, List<GameOrderCandidate> candidates)
+        public void Analyse(PlayList playList)
         {
             Initialise(playList);
             // Functional inspired code
@@ -29,7 +27,7 @@ namespace CanoePoloLeagueOrganiser
             CalculateMaxConsecutiveMatchesByAnyTeam();
             IfCouldBeOptimal(CalculateOccurencesOfTeamsPlayingConsecutiveMatches);
             IfCouldBeOptimal(CalculateGamesNotPlayedBetweenFirstAndLast);
-            IfCouldBeOptimal(() => UpdateOptimal(candidates));
+            IfCouldBeOptimal(UpdateOptimal);
         }
 
         void Initialise(PlayList playList)
@@ -63,23 +61,18 @@ namespace CanoePoloLeagueOrganiser
                 performAction();
         }
 
-        void UpdateOptimal(List<GameOrderCandidate> candidates)
+        void UpdateOptimal()
         {
             optimalPlayListMetrics = optimalPlayListMetrics ?? new GameOrderMetrics();
             optimalPlayListMetrics.MaxConsecutiveMatchesByAnyTeam = partialPlayListMetrics.MaxConsecutiveMatchesByAnyTeam.Value;
             optimalPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches = partialPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches.Value;
             optimalPlayListMetrics.GamesNotPlayedBetweenFirstAndLast = partialPlayListMetrics.GamesNotPlayedBetweenFirstAndLast.Value;
 
-            AddCandidate(candidates);
-        }
-
-        void AddCandidate(List<GameOrderCandidate> candidates) =>
-            candidates.Add(
-                new GameOrderCandidate(
+            OptimalGameOrder = new GameOrderCandidate(
                     new MarkConsecutiveGames().MarkTeamsPlayingConsecutively(playList.Games),
                     optimalPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches,
                     optimalPlayListMetrics.MaxConsecutiveMatchesByAnyTeam,
-                    optimalPlayListMetrics.GamesNotPlayedBetweenFirstAndLast));
-
+                    optimalPlayListMetrics.GamesNotPlayedBetweenFirstAndLast);
+        }
     }
 }

@@ -63,7 +63,6 @@ namespace CanoePoloLeagueOrganiser
         GameOrderPossiblyNullCalculation GameOrder(Func<int[], int, bool> curtailer)
         {
             return new OptimalGameOrderFromCurtailedList(
-                games,
                 pragmatiser,
                 new Permupotater<Game>(games.ToArray(), curtailer)
                 ).CalculateGameOrder();

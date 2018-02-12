@@ -12,40 +12,31 @@ namespace CanoePoloLeagueOrganiser
     public class OptimalGameOrderFromCurtailedList
     {
         IPermupotater<Game> Permupotater { get; }
-        IReadOnlyList<Game> Games { get; }
         IPragmatiser Pragmatiser { get; }
-
-        List<GameOrderCandidate> Candidates { get; }
-        MarkConsecutiveGames Marker { get; }
 
         uint permutationCount;
         DateTime timeStartedCalculation;
         PlayListAnalyser playlistAnalyser;
 
         public OptimalGameOrderFromCurtailedList(
-            IReadOnlyList<Game> games, 
-            IPragmatiser pragmatiser, 
+            IPragmatiser pragmatiser,
             IPermupotater<Game> permupotater)
         {
             Requires(pragmatiser != null);
             Requires(permupotater != null);
-            Requires(games != null);
 
             Permupotater = permupotater;
-            Games = games; 
             Pragmatiser = pragmatiser;
 
-            Candidates = new List<GameOrderCandidate>();
             playlistAnalyser = new PlayListAnalyser();
-            Marker = new MarkConsecutiveGames();
         }
 
-        bool Callback(Game[] games)
+        bool AnalyseGameOrder(Game[] games)
         {
             if (AcceptableSolutionExists())
                 return false;
 
-            playlistAnalyser.Analyse(new PlayList(games), Candidates);
+            playlistAnalyser.Analyse(new PlayList(games));
 
             return true;
         }
@@ -63,24 +54,15 @@ namespace CanoePoloLeagueOrganiser
         {
             Ensures(Result<GameOrderPossiblyNullCalculation>() != null);
 
-            Candidates.Clear();
             playlistAnalyser = new PlayListAnalyser();
             permutationCount = 0;
             timeStartedCalculation = DateTime.Now;
 
-            // generate a list of all possible game orders
-            Permupotater.EnumeratePermutations(Callback);
-
-            // sort by bestness and return the best one
-            var orderedCandidates = 
-                Candidates
-                .OrderBy(c => c.MaxConsecutiveMatchesByAnyTeam)
-                .ThenBy(c => c.OccurencesOfTeamsPlayingConsecutiveMatches)
-                .ThenBy(c => c.GamesNotPlayedBetweenFirstAndLast)
-                .ToList();
+            // analyse all possible game orders
+            Permupotater.EnumeratePermutations(AnalyseGameOrder);
 
             return new GameOrderPossiblyNullCalculation(
-                optimisedGameOrder: orderedCandidates.FirstOrDefault(), 
+                optimisedGameOrder: playlistAnalyser.OptimalGameOrder,
                 pragmatisationLevel: Pragmatiser.Level, 
                 optimisationMessage: Pragmatiser.Message);
         }

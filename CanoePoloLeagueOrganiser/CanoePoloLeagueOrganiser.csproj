@@ -63,7 +63,7 @@
     <Compile Include="PlayListException.cs" />
     <Compile Include="PragmatisationLevel.cs" />
     <Compile Include="RubyInspiredListFunctions.cs" />
-    <Compile Include="temp.cs" />
+    <Compile Include="PlayListAnalyser.cs" />
     <Compile Include="TenSecondPragmatiser.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
