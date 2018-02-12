@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CanoePoloLeagueOrganiser
 {
-    public class Temp
+    public class PlayListAnalyser
     {
         public IGameOrderMetrics OptimalPlayListMetrics =>
             optimalPlayListMetrics;
@@ -15,12 +15,12 @@ namespace CanoePoloLeagueOrganiser
         PlayList playList;
         PartialGameOrderMetrics partialPlayListMetrics;
 
-        public Temp()
+        public PlayListAnalyser()
         {
             optimalPlayListMetrics = null;
         }
 
-        public void Stuff(PlayList playList, List<GameOrderCandidate> candidates)
+        public void Analyse(PlayList playList, List<GameOrderCandidate> candidates)
         {
             Initialise(playList);
             // Functional inspired code

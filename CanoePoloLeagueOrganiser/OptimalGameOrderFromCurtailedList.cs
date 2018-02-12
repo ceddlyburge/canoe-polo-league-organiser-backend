@@ -20,7 +20,7 @@ namespace CanoePoloLeagueOrganiser
 
         uint permutationCount;
         DateTime timeStartedCalculation;
-        Temp playlistAnalyser;
+        PlayListAnalyser playlistAnalyser;
 
         public OptimalGameOrderFromCurtailedList(
             IReadOnlyList<Game> games, 
@@ -36,7 +36,7 @@ namespace CanoePoloLeagueOrganiser
             Pragmatiser = pragmatiser;
 
             Candidates = new List<GameOrderCandidate>();
-            playlistAnalyser = new Temp();
+            playlistAnalyser = new PlayListAnalyser();
             Marker = new MarkConsecutiveGames();
         }
 
@@ -45,7 +45,7 @@ namespace CanoePoloLeagueOrganiser
             if (AcceptableSolutionExists())
                 return false;
 
-            playlistAnalyser.Stuff(new PlayList(games), Candidates);
+            playlistAnalyser.Analyse(new PlayList(games), Candidates);
 
             return true;
         }
@@ -64,7 +64,7 @@ namespace CanoePoloLeagueOrganiser
             Ensures(Result<GameOrderPossiblyNullCalculation>() != null);
 
             Candidates.Clear();
-            playlistAnalyser = new Temp();
+            playlistAnalyser = new PlayListAnalyser();
             permutationCount = 0;
             timeStartedCalculation = DateTime.Now;
 
