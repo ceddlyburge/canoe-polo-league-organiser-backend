@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CanoePoloLeagueOrganiser
 {
-    public class PlayListAnalyser
+    public class RunningOptimalGameOrder
     {
         public GameOrderCandidate OptimalGameOrder { get; private set; }
         public uint CurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches => 
@@ -16,15 +16,16 @@ namespace CanoePoloLeagueOrganiser
         PlayList playList;
         PartialGameOrderMetrics partialPlayListMetrics;
 
-        public PlayListAnalyser() =>
+        // A new object should be construted for each set of permutations to analyse
+        public RunningOptimalGameOrder() =>
             optimalPlayListMetrics = null;
 
         uint GetCurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches => optimalPlayListMetrics?.OccurencesOfTeamsPlayingConsecutiveMatches ?? uint.MaxValue;
 
-        public void Analyse(PlayList playList)
+        // This should be called for each playlist permutation. 
+        public void UpdateOptimalGameOrderIfOptimal(PlayList playList)
         {
             Initialise(playList);
-            // Functional inspired code
             // It calculates each metric, and then only continues on if the metrics so far are as good or better than the current best (this saves unecessary calculations)
             // It has to be done in the same priority order to be any use, and hence duplicates the logic in GameOrderMetricsComparer, which is a shame. However, it will still work if the order is wrong, it just won't optimise out some of the calculations. I think this is as good a solutions as can be, but am leaving the comment here in case in prompts further ideas later.
             CalculateMaxConsecutiveMatchesByAnyTeam();
@@ -66,10 +67,7 @@ namespace CanoePoloLeagueOrganiser
 
         void UpdateOptimal()
         {
-            optimalPlayListMetrics = optimalPlayListMetrics ?? new GameOrderMetrics();
-            optimalPlayListMetrics.MaxConsecutiveMatchesByAnyTeam = partialPlayListMetrics.MaxConsecutiveMatchesByAnyTeam.Value;
-            optimalPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches = partialPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches.Value;
-            optimalPlayListMetrics.GamesNotPlayedBetweenFirstAndLast = partialPlayListMetrics.GamesNotPlayedBetweenFirstAndLast.Value;
+            optimalPlayListMetrics = new GameOrderMetrics(partialPlayListMetrics);
 
             OptimalGameOrder = new GameOrderCandidate(
                     new MarkConsecutiveGames().MarkTeamsPlayingConsecutively(playList.Games),

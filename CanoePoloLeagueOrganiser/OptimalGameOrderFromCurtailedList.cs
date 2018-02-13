@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 
 namespace CanoePoloLeagueOrganiser
 {
-
-
     public class OptimalGameOrderFromCurtailedList
     {
         IPermupotater<Game> Permupotater { get; }
@@ -16,7 +14,7 @@ namespace CanoePoloLeagueOrganiser
 
         uint permutationCount;
         DateTime timeStartedCalculation;
-        PlayListAnalyser playlistAnalyser;
+        RunningOptimalGameOrder runningOptimalGameOrder;
 
         public OptimalGameOrderFromCurtailedList(
             IPragmatiser pragmatiser,
@@ -28,15 +26,15 @@ namespace CanoePoloLeagueOrganiser
             Permupotater = permupotater;
             Pragmatiser = pragmatiser;
 
-            playlistAnalyser = new PlayListAnalyser();
+            runningOptimalGameOrder = new RunningOptimalGameOrder();
         }
 
-        bool AnalyseGameOrder(Game[] games)
+        bool UpdateOptimalGameOrderIfOptimal(Game[] games)
         {
             if (AcceptableSolutionExists())
                 return false;
 
-            playlistAnalyser.Analyse(new PlayList(games));
+            runningOptimalGameOrder.UpdateOptimalGameOrderIfOptimal(new PlayList(games));
 
             return true;
         }
@@ -47,22 +45,22 @@ namespace CanoePoloLeagueOrganiser
                 (permutationCount++ % 1000 == 0)
                 && Pragmatiser.AcceptableSolution(
                     DateTime.Now.Subtract(timeStartedCalculation),
-                    playlistAnalyser.CurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches);
+                    runningOptimalGameOrder.CurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches);
         }
 
         public GameOrderPossiblyNullCalculation CalculateGameOrder()
         {
             Ensures(Result<GameOrderPossiblyNullCalculation>() != null);
 
-            playlistAnalyser = new PlayListAnalyser();
+            runningOptimalGameOrder = new RunningOptimalGameOrder();
             permutationCount = 0;
             timeStartedCalculation = DateTime.Now;
 
             // analyse all possible game orders
-            Permupotater.EnumeratePermutations(AnalyseGameOrder);
+            Permupotater.EnumeratePermutations(UpdateOptimalGameOrderIfOptimal);
 
             return new GameOrderPossiblyNullCalculation(
-                optimisedGameOrder: playlistAnalyser.OptimalGameOrder,
+                optimisedGameOrder: runningOptimalGameOrder.OptimalGameOrder,
                 pragmatisationLevel: Pragmatiser.Level, 
                 optimisationMessage: Pragmatiser.Message);
         }
