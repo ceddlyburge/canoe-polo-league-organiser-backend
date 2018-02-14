@@ -39,16 +39,16 @@ namespace CanoePoloLeagueOrganiser
 
         GameOrderCalculation GameOrder()
         {
-            var possiblyNullGameOrder = PossiblyNullGameOrder();
+            var gameOrder = PossiblyNullButShouldntBeGameOrder();
 
             // This is defensive programming: this shouldn't happen
-            if (possiblyNullGameOrder.OptimisedGameOrderAvailable == false)
+            if (gameOrder.OptimisedGameOrderAvailable == false)
                 throw new PlayListException("Unexpected problem: Unable to find an optimised play list");
 
-            return new GameOrderCalculation(possiblyNullGameOrder);
+            return new GameOrderCalculation(gameOrder);
         }
 
-        GameOrderPossiblyNullCalculation PossiblyNullGameOrder()
+        GameOrderPossiblyNullCalculation PossiblyNullButShouldntBeGameOrder()
         {
             // If we chop out all the permutations where a team is playing twice in a row, the calculation has a lot less work to do and is hence a lot faster
             var curtailedGameOrder = GameOrder(curtailWhenTeamPlaysConsecutively);
