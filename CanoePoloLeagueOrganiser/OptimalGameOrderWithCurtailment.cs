@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CanoePoloLeagueOrganiser
 {
-    public class OptimalGameOrderFromCurtailedList
+    public class OptimalGameOrderWithCurtailment
     {
         IPermupotater<Game> Permupotater { get; }
         IPragmatiser Pragmatiser { get; }
@@ -16,7 +16,7 @@ namespace CanoePoloLeagueOrganiser
         DateTime timeStartedCalculation;
         RunningOptimalGameOrder runningOptimalGameOrder;
 
-        public OptimalGameOrderFromCurtailedList(
+        public OptimalGameOrderWithCurtailment(
             IPragmatiser pragmatiser,
             IPermupotater<Game> permupotater)
         {
