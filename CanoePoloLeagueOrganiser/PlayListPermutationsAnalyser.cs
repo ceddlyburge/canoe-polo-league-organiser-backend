@@ -41,15 +41,6 @@ namespace CanoePoloLeagueOrganiser
             partialPlayListMetrics = new PartialGameOrderMetrics();
         }
 
-        bool CouldBeOptimal()
-        {
-            // if we haven't got an optimal play list yet, then anything is better
-            if (optimalPlayListMetrics == null)
-                return true;
-
-            return new GameOrderMetricsComparer().IsBetterOrCouldBe(optimalPlayListMetrics, partialPlayListMetrics);
-        }
-
         void CalculateMaxConsecutiveMatchesByAnyTeam() =>
             partialPlayListMetrics.MaxConsecutiveMatchesByAnyTeam = new MaxConsecutiveMatchesByAnyTeam().Calculate(playList);
 
@@ -58,12 +49,6 @@ namespace CanoePoloLeagueOrganiser
 
         void CalculateGamesNotPlayedBetweenFirstAndLast() =>
             partialPlayListMetrics.GamesNotPlayedBetweenFirstAndLast = new GamesNotPlayedBetweenFirstAndLast().Calculate(playList);
-
-        void IfCouldBeOptimal(Action performAction)
-        {
-            if (CouldBeOptimal())
-                performAction();
-        }
 
         void UpdateOptimal()
         {
@@ -74,6 +59,21 @@ namespace CanoePoloLeagueOrganiser
                     optimalPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches,
                     optimalPlayListMetrics.MaxConsecutiveMatchesByAnyTeam,
                     optimalPlayListMetrics.GamesNotPlayedBetweenFirstAndLast);
+        }
+
+        void IfCouldBeOptimal(Action performAction)
+        {
+            if (CouldBeOptimal())
+                performAction();
+        }
+
+        bool CouldBeOptimal()
+        {
+            // if we haven't got an optimal play list yet, then anything is better
+            if (optimalPlayListMetrics == null)
+                return true;
+
+            return new GameOrderMetricsComparer().IsBetterOrCouldBe(optimalPlayListMetrics, partialPlayListMetrics);
         }
     }
 }
