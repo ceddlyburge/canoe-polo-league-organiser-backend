@@ -29,15 +29,13 @@ namespace CanoePoloLeagueOrganiser
             runningOptimalGameOrder = new RunningOptimalGameOrder();
         }
 
-        IEnumerable<PlayList> PragmatisedPermutations()
+        public IEnumerable<PlayList> PragmatisedPermutations()
         {
-            foreach (var gameOrder in Permupotater.Permutations())
-            {
-                if (AcceptableSolutionExists())
-                    yield break;
-
-                yield return new PlayList(gameOrder);
-            }
+            return new PragmatisePermutations(
+                    Pragmatiser, 
+                    Permupotater, 
+                    runningOptimalGameOrder
+                ).PragmatisedPermutations();
         }
 
         public GameOrderPossiblyNullCalculation CalculateGameOrder()

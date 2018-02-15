@@ -20,19 +20,13 @@ namespace CanoePoloLeagueOrganiser
         public RunningOptimalGameOrder() =>
             optimalPlayListMetrics = null;
 
-        uint GetCurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches => optimalPlayListMetrics?.OccurencesOfTeamsPlayingConsecutiveMatches ?? uint.MaxValue;
-
         public void OptimalGameOrder2(IEnumerable<PlayList> playLists)
         {
-            optimalPlayListMetrics = null;
             foreach (var pl in playLists)
-            {
                 UpdateOptimalGameOrderIfOptimal(pl);
-            }
         }
 
-        // This should be called for each playlist permutation. 
-        public void UpdateOptimalGameOrderIfOptimal(PlayList playList)
+        void UpdateOptimalGameOrderIfOptimal(PlayList playList)
         {
             Initialise(playList);
             // It calculates each metric, and then only continues on if the metrics so far are as good or better than the current best (this saves unecessary calculations)
@@ -84,5 +78,8 @@ namespace CanoePoloLeagueOrganiser
 
             return new GameOrderMetricsComparer().IsBetterOrCouldBe(optimalPlayListMetrics, partialPlayListMetrics);
         }
+
+        uint GetCurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches => optimalPlayListMetrics?.OccurencesOfTeamsPlayingConsecutiveMatches ?? uint.MaxValue;
+
     }
 }

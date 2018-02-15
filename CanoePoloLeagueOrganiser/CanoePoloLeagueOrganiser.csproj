@@ -45,6 +45,7 @@
     <Compile Include="GameOrderMetrics.cs" />
     <Compile Include="GameOrderMetricsComparer.cs" />
     <Compile Include="GameOrderPossiblyNullCalculation.cs" />
+    <Compile Include="OptimalGameOrderWithPragmatisationAndCurtailment.cs" />
     <Compile Include="PlayList.cs" />
     <Compile Include="GamesNotPlayedBetweenFirstAndLast.cs" />
     <Compile Include="GamesNotPlayedBetweenFirstAndLastByTeam.cs" />
@@ -67,7 +68,7 @@
     <Compile Include="TenSecondPragmatiser.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="OptimalGameOrderWithPragmatisationAndCurtailment.cs" />
+    <Compile Include="PragmatisePermutations.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
