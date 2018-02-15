@@ -17,8 +17,8 @@ namespace CanoePoloLeagueOrganiser
         uint permutationCount;
 
         public PragmatisePermutations(
-            IPragmatiser pragmatiser,
             IEnumerable<Game[]> permutations,
+            IPragmatiser pragmatiser,
             RunningOptimalGameOrder runningOptimalGameOrder)
         {
             Requires(pragmatiser != null);
@@ -37,6 +37,12 @@ namespace CanoePoloLeagueOrganiser
             return Pragmatise();
         }
 
+        void Initialise()
+        {
+            TimeStartedCalculation = DateTime.Now;
+            permutationCount = 0;
+        }
+
         // this but of logic looks very normal, but is actually a bit strange. It enumerates a lazily evaluated list so that we can stop enumerating if we find a good enough solution. It also returns a lazily evaluated list. The strange part is that in order to work out whether to continue enumerating, it uses a value from the RunningOptimalGameOrder, which RunningOptimalGameOrder calculates while enumerating this loop.
         IEnumerable<PlayList> Pragmatise()
         {
@@ -47,12 +53,6 @@ namespace CanoePoloLeagueOrganiser
 
                 yield return new PlayList(gameOrder);
             }
-        }
-
-        void Initialise()
-        {
-            TimeStartedCalculation = DateTime.Now;
-            permutationCount = 0;
         }
 
         bool AcceptableSolutionExists()
