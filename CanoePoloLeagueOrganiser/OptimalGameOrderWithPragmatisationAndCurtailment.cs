@@ -9,18 +9,18 @@ namespace CanoePoloLeagueOrganiser
 {
     public class OptimalGameOrderWithPragmatisationAndCurtailment
     {
-        IPermutater<Game> Permutater { get; }
+        IEnumerable<Game[]> Permutations { get; }
         IPragmatiser Pragmatiser { get; }
         RunningOptimalGameOrder runningOptimalGameOrder;
 
         public OptimalGameOrderWithPragmatisationAndCurtailment(
             IPragmatiser pragmatiser,
-            IPermutater<Game> permutater)
+            IEnumerable<Game[]> permutations)
         {
             Requires(pragmatiser != null);
-            Requires(permutater != null);
+            Requires(permutations != null);
 
-            Permutater = permutater;
+            Permutations = permutations;
             Pragmatiser = pragmatiser;
         }
 
@@ -43,7 +43,7 @@ namespace CanoePoloLeagueOrganiser
         {
             return new PragmatisePermutations(
                     Pragmatiser,
-                    Permutater.Permutations(),
+                    Permutations,
                     runningOptimalGameOrder
                 ).PragmatisedPermutations();
         }

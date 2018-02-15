@@ -28,7 +28,7 @@ namespace CanoePoloLeagueOrganiserTests
                 new Game("Vkc Pilchards", "Oxford"),
             };
 
-            var sut = new OptimalGameOrderWithPragmatisationAndCurtailment(new TenSecondPragmatiser(), EnumerateAllPermutations(games)).CalculateGameOrder();
+            var sut = new OptimalGameOrderWithPragmatisationAndCurtailment(new TenSecondPragmatiser(), EnumerateAllPermutations(games).Permutations()).CalculateGameOrder();
 
             Assert.False(PlayingTwiceInARow("Castle", sut.OptimisedGameOrder.GameOrder));
         }
@@ -40,7 +40,7 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Castle", "Battersea")
              };
 
-            var sut = new OptimalGameOrderWithPragmatisationAndCurtailment(new NoCompromisesPragmatiser(), EnumerateAllPermutations(games)).CalculateGameOrder();
+            var sut = new OptimalGameOrderWithPragmatisationAndCurtailment(new NoCompromisesPragmatiser(), EnumerateAllPermutations(games).Permutations()).CalculateGameOrder();
 
             Assert.Equal(1, sut.OptimisedGameOrder.GameOrder.Count());
         }
@@ -54,7 +54,7 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Ulu", "Letchworth")
              };
 
-            var sut = new OptimalGameOrderWithPragmatisationAndCurtailment(new NoCompromisesPragmatiser(), EnumerateAllPermutations(games)).CalculateGameOrder();
+            var sut = new OptimalGameOrderWithPragmatisationAndCurtailment(new NoCompromisesPragmatiser(), EnumerateAllPermutations(games).Permutations()).CalculateGameOrder();
 
             Assert.False(PlayingTwiceInARow("Castle", sut.OptimisedGameOrder.GameOrder));
         }
@@ -69,7 +69,7 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Castle", "Avon")
              };
 
-            var sut = new OptimalGameOrderWithPragmatisationAndCurtailment(new NoCompromisesPragmatiser(), EnumerateAllPermutations(games)).CalculateGameOrder().OptimisedGameOrder;
+            var sut = new OptimalGameOrderWithPragmatisationAndCurtailment(new NoCompromisesPragmatiser(), EnumerateAllPermutations(games).Permutations()).CalculateGameOrder().OptimisedGameOrder;
 
             Assert.False(PlayingTwiceInARow("Castle", sut.GameOrder));
             Assert.False(PlayingTwiceInARow("Letchworth", sut.GameOrder));
@@ -86,7 +86,7 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Battersea", "Letchworth")
              };
 
-            var sut = new OptimalGameOrderWithPragmatisationAndCurtailment(new NoCompromisesPragmatiser(), EnumerateAllPermutations(games)).CalculateGameOrder();
+            var sut = new OptimalGameOrderWithPragmatisationAndCurtailment(new NoCompromisesPragmatiser(), EnumerateAllPermutations(games).Permutations()).CalculateGameOrder();
 
             Assert.Equal((uint)2, sut.OptimisedGameOrder.MaxConsecutiveMatchesByAnyTeam);
         }
@@ -102,7 +102,7 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Letchworth", "Castle")
              };
 
-            var sut = new OptimalGameOrderWithPragmatisationAndCurtailment(new NoCompromisesPragmatiser(), EnumerateAllPermutations(games)).CalculateGameOrder();
+            var sut = new OptimalGameOrderWithPragmatisationAndCurtailment(new NoCompromisesPragmatiser(), EnumerateAllPermutations(games).Permutations()).CalculateGameOrder();
 
             Assert.Equal((uint)2, sut.OptimisedGameOrder.MaxConsecutiveMatchesByAnyTeam);
         }
@@ -121,7 +121,7 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Castle", "Ulu")
              };
 
-            var gameOrder = new OptimalGameOrderWithPragmatisationAndCurtailment(new NoCompromisesPragmatiser(), EnumerateAllPermutations(games)).CalculateGameOrder();
+            var gameOrder = new OptimalGameOrderWithPragmatisationAndCurtailment(new NoCompromisesPragmatiser(), EnumerateAllPermutations(games).Permutations()).CalculateGameOrder();
 
             // hard to figure out, but this is the best order
             //new Game("Castle", Battersea), "Castle" 5, battersea 1
@@ -163,7 +163,7 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Avon", "VKC")
              };
 
-            var gameOrder = new OptimalGameOrderWithPragmatisationAndCurtailment(new TenSecondPragmatiser(), EnumerateAllPermutations(games)).CalculateGameOrder();
+            var gameOrder = new OptimalGameOrderWithPragmatisationAndCurtailment(new TenSecondPragmatiser(), EnumerateAllPermutations(games).Permutations()).CalculateGameOrder();
 
             // allow it an extra second to finish up or whatever. 
             Assert.True(DateTime.Now.Subtract(dateStarted) < TimeSpan.FromSeconds(11));
@@ -198,7 +198,7 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Castle", "19")
              };
 
-            var gameOrder = new OptimalGameOrderWithPragmatisationAndCurtailment(new TenSecondPragmatiser(), EnumerateAllPermutations(games)).CalculateGameOrder();
+            var gameOrder = new OptimalGameOrderWithPragmatisationAndCurtailment(new TenSecondPragmatiser(), EnumerateAllPermutations(games).Permutations()).CalculateGameOrder();
 
             // allow it an extra second to finish up or whatever. This test must take 10 seconds as there are non possible good solutions
             Assert.True(DateTime.Now.Subtract(dateStarted) < TimeSpan.FromSeconds(11));
@@ -222,7 +222,7 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Braintree", "Ulu")
              };
 
-            new OptimalGameOrderWithPragmatisationAndCurtailment(new NoCompromisesPragmatiser(), EnumerateAllPermutations(games)).CalculateGameOrder();
+            new OptimalGameOrderWithPragmatisationAndCurtailment(new NoCompromisesPragmatiser(), EnumerateAllPermutations(games).Permutations()).CalculateGameOrder();
 
             // 10 games takes 5 - 6 seconds to run with no curtailment, this test is just here to make analysing optimisations easier
         }
