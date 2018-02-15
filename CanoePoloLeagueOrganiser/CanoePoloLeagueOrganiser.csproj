@@ -45,7 +45,7 @@
     <Compile Include="GameOrderMetrics.cs" />
     <Compile Include="GameOrderMetricsComparer.cs" />
     <Compile Include="GameOrderPossiblyNullCalculation.cs" />
-    <Compile Include="OptimalGameOrderWithPragmatisationAndCurtailment.cs" />
+    <Compile Include="OptimalGameOrderWithPragmatisation.cs" />
     <Compile Include="PlayList.cs" />
     <Compile Include="GamesNotPlayedBetweenFirstAndLast.cs" />
     <Compile Include="GamesNotPlayedBetweenFirstAndLastByTeam.cs" />
