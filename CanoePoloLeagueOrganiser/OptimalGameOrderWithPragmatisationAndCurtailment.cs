@@ -33,7 +33,7 @@ namespace CanoePoloLeagueOrganiser
         {
             return new PragmatisePermutations(
                     Pragmatiser, 
-                    Permupotater, 
+                    Permupotater.Permutations(), 
                     runningOptimalGameOrder
                 ).PragmatisedPermutations();
         }

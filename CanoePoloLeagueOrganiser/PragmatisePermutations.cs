@@ -9,7 +9,7 @@ namespace CanoePoloLeagueOrganiser
 {
     public class PragmatisePermutations
     {
-        IPermutater<Game> Permutater { get; }
+        IEnumerable<Game[]> Permutations { get; }
         IPragmatiser Pragmatiser { get; }
         DateTime TimeStartedCalculation { get; }
         RunningOptimalGameOrder RunningOptimalGameOrder { get; }
@@ -18,14 +18,14 @@ namespace CanoePoloLeagueOrganiser
 
         public PragmatisePermutations(
             IPragmatiser pragmatiser,
-            IPermutater<Game> permupotater,
+            IEnumerable<Game[]> permutations,
             RunningOptimalGameOrder runningOptimalGameOrder)
         {
             Requires(pragmatiser != null);
-            Requires(permupotater != null);
+            Requires(permutations != null);
             Requires(runningOptimalGameOrder != null);
 
-            Permutater = permupotater;
+            Permutations = permutations;
             Pragmatiser = pragmatiser;
             RunningOptimalGameOrder = runningOptimalGameOrder;
 
@@ -35,7 +35,7 @@ namespace CanoePoloLeagueOrganiser
 
         public IEnumerable<PlayList> PragmatisedPermutations()
         {
-            foreach (var gameOrder in Permutater.Permutations())
+            foreach (var gameOrder in Permutations)
             {
                 if (AcceptableSolutionExists())
                     yield break;
