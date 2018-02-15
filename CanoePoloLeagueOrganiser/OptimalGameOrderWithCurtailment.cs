@@ -29,6 +29,35 @@ namespace CanoePoloLeagueOrganiser
             runningOptimalGameOrder = new RunningOptimalGameOrder();
         }
 
+        public GameOrderPossiblyNullCalculation CalculateGameOrder()
+        {
+            Ensures(Result<GameOrderPossiblyNullCalculation>() != null);
+
+            Initialise();
+
+            AnalysePermutations();
+
+            return OptimalPermutation();
+        }
+
+        void Initialise()
+        {
+            runningOptimalGameOrder = new RunningOptimalGameOrder();
+            permutationCount = 0;
+            timeStartedCalculation = DateTime.Now;
+        }
+
+        void AnalysePermutations()
+        {
+            foreach (var gameOrder in Permupotater.Permutations())
+            {
+                if (AcceptableSolutionExists())
+                    break;
+
+                AnalysePermutation(gameOrder);
+            }
+        }
+
         bool AcceptableSolutionExists()
         {
             return
@@ -38,25 +67,16 @@ namespace CanoePoloLeagueOrganiser
                     runningOptimalGameOrder.CurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches);
         }
 
-        public GameOrderPossiblyNullCalculation CalculateGameOrder()
+        void AnalysePermutation(Game[] gameOrder) =>
+            runningOptimalGameOrder.UpdateOptimalGameOrderIfOptimal(new PlayList(gameOrder));
+
+        GameOrderPossiblyNullCalculation OptimalPermutation()
         {
-            Ensures(Result<GameOrderPossiblyNullCalculation>() != null);
-
-            runningOptimalGameOrder = new RunningOptimalGameOrder();
-            permutationCount = 0;
-            timeStartedCalculation = DateTime.Now;
-            foreach (var gameOrder in Permupotater.Permutations())
-            {
-                if (AcceptableSolutionExists())
-                    break;
-
-                runningOptimalGameOrder.UpdateOptimalGameOrderIfOptimal(new PlayList(gameOrder));
-            }
-
             return new GameOrderPossiblyNullCalculation(
                 optimisedGameOrder: runningOptimalGameOrder.OptimalGameOrder,
-                pragmatisationLevel: Pragmatiser.Level, 
+                pragmatisationLevel: Pragmatiser.Level,
                 optimisationMessage: Pragmatiser.Message);
         }
+
     }
 }
