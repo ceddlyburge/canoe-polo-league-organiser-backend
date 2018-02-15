@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace CanoePoloLeagueOrganiser
 {
-    public class Permupotater<T> : IPermupotater<T>
+    public class Permutater<T> : IPermutater<T>
     {
         Func<int[], int, bool> Curtail { get; }
         T[] Items { get; }
 
-        public Permupotater(T[] items, Func<int[], int, bool> curtail)
+        public Permutater(T[] items, Func<int[], int, bool> curtail)
         {
             Requires(items != null);
             Requires(curtail != null);

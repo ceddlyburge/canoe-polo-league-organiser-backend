@@ -9,7 +9,7 @@ namespace CanoePoloLeagueOrganiser
 {
     public class OptimalGameOrderWithPragmatisationAndCurtailment
     {
-        IPermupotater<Game> Permupotater { get; }
+        IPermutater<Game> Permupotater { get; }
         IPragmatiser Pragmatiser { get; }
 
         uint permutationCount;
@@ -18,7 +18,7 @@ namespace CanoePoloLeagueOrganiser
 
         public OptimalGameOrderWithPragmatisationAndCurtailment(
             IPragmatiser pragmatiser,
-            IPermupotater<Game> permupotater)
+            IPermutater<Game> permupotater)
         {
             Requires(pragmatiser != null);
             Requires(permupotater != null);

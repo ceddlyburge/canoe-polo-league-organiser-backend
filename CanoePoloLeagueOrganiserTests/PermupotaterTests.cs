@@ -15,7 +15,7 @@ namespace CanoePoloLeagueOrganiserTests
             int[] list = { 0 };
             var permutations = new List<String>();
 
-            new Permupotater<int>(list, NoCurtailment)
+            new Permutater<int>(list, NoCurtailment)
                 .Permutations().ToList()
                 .ForEach(AddStringPermuation(permutations));
 
@@ -29,7 +29,7 @@ namespace CanoePoloLeagueOrganiserTests
             int[] list = { 0, 1 };
             var permutations = new List<String>();
 
-            new Permupotater<int>(list, NoCurtailment)
+            new Permutater<int>(list, NoCurtailment)
                 .Permutations().ToList()
                 .ForEach(AddStringPermuation(permutations));
 
@@ -44,7 +44,7 @@ namespace CanoePoloLeagueOrganiserTests
             int[] list = { 0, 1, 2 };
             var permutations = new List<String>();
 
-            new Permupotater<int>(list, NoCurtailment)
+            new Permutater<int>(list, NoCurtailment)
                 .Permutations().ToList()
                 .ForEach(AddStringPermuation(permutations));
 
@@ -64,7 +64,7 @@ namespace CanoePoloLeagueOrganiserTests
             var permutations = new List<string>();
 
             // curtail all permutations 
-            new Permupotater<int>(list, (items, length) => true)
+            new Permutater<int>(list, (items, length) => true)
                 .Permutations().ToList()
                 .ForEach(AddStringPermuation(permutations));
 
@@ -78,7 +78,7 @@ namespace CanoePoloLeagueOrganiserTests
             var permutations = new List<string>();
 
             // curtail the 0 - 1 permutation
-            new Permupotater<int>(
+            new Permutater<int>(
                     list, 
                     (items, length) => (length == 1 && items[0] == 0 && items[1] == 1)
                 )
@@ -96,7 +96,7 @@ namespace CanoePoloLeagueOrganiserTests
             var permutations = new List<string>();
 
             // curtail permutations that are not in ascending order
-            new Permupotater<int>(
+            new Permutater<int>(
                     list
                     , (items, length) => (length > 0 && items[length] < items[length - 1])
                 )
@@ -114,7 +114,7 @@ namespace CanoePoloLeagueOrganiserTests
             var permutations = new List<string>();
 
             // curtail any permutations where a number is within one of the previous number
-            new Permupotater<int>(
+            new Permutater<int>(
                     list
                     , (items, length) => (length > 0 && Abs(items[length - 1] - items[length]) == 1)
                 )

@@ -241,9 +241,9 @@ namespace CanoePoloLeagueOrganiserTests
             return false;
         }
 
-        Permupotater<Game> EnumerateAllPermutations(List<Game> games)
+        Permutater<Game> EnumerateAllPermutations(List<Game> games)
         {
-            return new Permupotater<Game>(games.ToArray(), NoCurtailment);
+            return new Permutater<Game>(games.ToArray(), NoCurtailment);
         }
 
         bool NoCurtailment(int[] gameIndexes, int length)

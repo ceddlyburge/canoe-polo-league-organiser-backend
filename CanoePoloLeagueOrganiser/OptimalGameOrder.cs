@@ -64,7 +64,7 @@ namespace CanoePoloLeagueOrganiser
         {
             return new OptimalGameOrderWithPragmatisationAndCurtailment(
                 pragmatiser,
-                new Permupotater<Game>(games.ToArray(), curtailer)
+                new Permutater<Game>(games.ToArray(), curtailer)
                 ).CalculateGameOrder();
         }
 

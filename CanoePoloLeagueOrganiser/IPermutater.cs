@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CanoePoloLeagueOrganiser
 {
-    public interface IPermupotater<T>
+    public interface IPermutater<T>
     {
         IEnumerable<T[]> Permutations();
    }
