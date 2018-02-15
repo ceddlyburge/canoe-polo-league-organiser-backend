@@ -20,7 +20,7 @@ namespace CanoePoloLeagueOrganiser
         public RunningOptimalGameOrder() =>
             optimalPlayListMetrics = null;
 
-        public void OptimalGameOrder2(IEnumerable<PlayList> playLists)
+        public void RunningCalculateOptimalGameOrder(IEnumerable<PlayList> playLists)
         {
             foreach (var pl in playLists)
                 UpdateOptimalGameOrderIfOptimal(pl);

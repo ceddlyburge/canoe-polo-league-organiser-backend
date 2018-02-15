@@ -37,6 +37,7 @@ namespace CanoePoloLeagueOrganiser
             return Pragmatise();
         }
 
+        // this but of logic looks very normal, but is actually a bit strange. It enumerates a lazily evaluated list so that we can stop enumerating if we find a good enough solution. It also returns a lazily evaluated list. The strange part is that in order to work out whether to continue enumerating, it uses a value from the RunningOptimalGameOrder, which RunningOptimalGameOrder calculates while enumerating this loop.
         IEnumerable<PlayList> Pragmatise()
         {
             foreach (var gameOrder in Permutations)
