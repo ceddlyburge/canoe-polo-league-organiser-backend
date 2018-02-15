@@ -56,18 +56,18 @@
     <Compile Include="OptimalGameOrder.cs" />
     <Compile Include="GameOrderCandidate.cs" />
     <Compile Include="GamesSerialiser.cs" />
-    <Compile Include="IPermupotater.cs" />
+    <Compile Include="IPermutater.cs" />
     <Compile Include="IPragmatiser.cs" />
     <Compile Include="MarkConsecutiveGames.cs" />
-    <Compile Include="Permupotater.cs" />
+    <Compile Include="Permutater.cs" />
     <Compile Include="PlayListException.cs" />
     <Compile Include="PragmatisationLevel.cs" />
     <Compile Include="RubyInspiredListFunctions.cs" />
-    <Compile Include="PlayListPermutationsAnalyser.cs" />
+    <Compile Include="RunningOptimalGameOrder.cs" />
     <Compile Include="TenSecondPragmatiser.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="OptimalGameOrderWithCurtailment.cs" />
+    <Compile Include="OptimalGameOrderWithPragmatisationAndCurtailment.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

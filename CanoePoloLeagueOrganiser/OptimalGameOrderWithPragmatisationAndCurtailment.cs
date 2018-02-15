@@ -29,13 +29,22 @@ namespace CanoePoloLeagueOrganiser
             runningOptimalGameOrder = new RunningOptimalGameOrder();
         }
 
+        IEnumerable<PlayList> PragmatisedPermutations()
+        {
+            foreach (var gameOrder in Permupotater.Permutations())
+            {
+                if (AcceptableSolutionExists())
+                    yield break;
+
+                yield return new PlayList(gameOrder);
+            }
+        }
+
         public GameOrderPossiblyNullCalculation CalculateGameOrder()
         {
-            Ensures(Result<GameOrderPossiblyNullCalculation>() != null);
-
             Initialise();
 
-            AnalysePermutations();
+            runningOptimalGameOrder.OptimalGameOrder2(PragmatisedPermutations());
 
             return OptimalPermutation();
         }
@@ -47,17 +56,6 @@ namespace CanoePoloLeagueOrganiser
             timeStartedCalculation = DateTime.Now;
         }
 
-        void AnalysePermutations()
-        {
-            foreach (var gameOrder in Permupotater.Permutations())
-            {
-                if (AcceptableSolutionExists())
-                    break;
-
-                AnalysePermutation(gameOrder);
-            }
-        }
-
         bool AcceptableSolutionExists()
         {
             return
@@ -66,9 +64,6 @@ namespace CanoePoloLeagueOrganiser
                     DateTime.Now.Subtract(timeStartedCalculation),
                     runningOptimalGameOrder.CurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches);
         }
-
-        void AnalysePermutation(Game[] gameOrder) =>
-            runningOptimalGameOrder.UpdateOptimalGameOrderIfOptimal(new PlayList(gameOrder));
 
         GameOrderPossiblyNullCalculation OptimalPermutation()
         {
