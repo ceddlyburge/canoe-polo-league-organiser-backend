@@ -11,7 +11,7 @@ namespace CanoePoloLeagueOrganiser
     {
         IEnumerable<Game[]> Permutations { get; }
         IPragmatiser Pragmatiser { get; }
-        DateTime TimeStartedCalculation { get; }
+        DateTime TimeStartedCalculation { get; set;  }
         RunningOptimalGameOrder RunningOptimalGameOrder { get; }
 
         uint permutationCount;
@@ -28,12 +28,16 @@ namespace CanoePoloLeagueOrganiser
             Permutations = permutations;
             Pragmatiser = pragmatiser;
             RunningOptimalGameOrder = runningOptimalGameOrder;
-
-            TimeStartedCalculation = DateTime.Now;
-            permutationCount = 0;
         }
 
         public IEnumerable<PlayList> PragmatisedPermutations()
+        {
+            Initialise();
+
+            return Pragmatise();
+        }
+
+        IEnumerable<PlayList> Pragmatise()
         {
             foreach (var gameOrder in Permutations)
             {
@@ -42,6 +46,12 @@ namespace CanoePoloLeagueOrganiser
 
                 yield return new PlayList(gameOrder);
             }
+        }
+
+        void Initialise()
+        {
+            TimeStartedCalculation = DateTime.Now;
+            permutationCount = 0;
         }
 
         bool AcceptableSolutionExists()
