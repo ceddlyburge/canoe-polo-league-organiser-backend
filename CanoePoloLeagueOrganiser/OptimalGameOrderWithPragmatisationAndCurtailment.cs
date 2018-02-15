@@ -9,49 +9,43 @@ namespace CanoePoloLeagueOrganiser
 {
     public class OptimalGameOrderWithPragmatisationAndCurtailment
     {
-        IPermutater<Game> Permupotater { get; }
+        IPermutater<Game> Permutater { get; }
         IPragmatiser Pragmatiser { get; }
-
-        uint permutationCount;
-        DateTime timeStartedCalculation;
         RunningOptimalGameOrder runningOptimalGameOrder;
 
         public OptimalGameOrderWithPragmatisationAndCurtailment(
             IPragmatiser pragmatiser,
-            IPermutater<Game> permupotater)
+            IPermutater<Game> permutater)
         {
             Requires(pragmatiser != null);
-            Requires(permupotater != null);
+            Requires(permutater != null);
 
-            Permupotater = permupotater;
+            Permutater = permutater;
             Pragmatiser = pragmatiser;
-
-            runningOptimalGameOrder = new RunningOptimalGameOrder();
-        }
-
-        public IEnumerable<PlayList> PragmatisedPermutations()
-        {
-            return new PragmatisePermutations(
-                    Pragmatiser, 
-                    Permupotater.Permutations(), 
-                    runningOptimalGameOrder
-                ).PragmatisedPermutations();
         }
 
         public GameOrderPossiblyNullCalculation CalculateGameOrder()
         {
             Initialise();
 
-            runningOptimalGameOrder.RunningCalculateOptimalGameOrder(PragmatisedPermutations());
+            Calculate();
 
             return OptimalPermutation();
         }
 
-        void Initialise()
-        {
+        void Initialise() =>
             runningOptimalGameOrder = new RunningOptimalGameOrder();
-            permutationCount = 0;
-            timeStartedCalculation = DateTime.Now;
+
+        void Calculate() =>
+            runningOptimalGameOrder.RunningCalculateOptimalGameOrder(PragmatisedPermutations());
+
+        IEnumerable<PlayList> PragmatisedPermutations()
+        {
+            return new PragmatisePermutations(
+                    Pragmatiser,
+                    Permutater.Permutations(),
+                    runningOptimalGameOrder
+                ).PragmatisedPermutations();
         }
 
         GameOrderPossiblyNullCalculation OptimalPermutation()
