@@ -22,25 +22,24 @@ namespace CanoePoloLeagueOrganiser
             Items = items;
         }
 
-        public bool EnumeratePermutations(Func<T[], bool> callback)
+        public IEnumerable<T[]> Permutations()
         {
-            Requires(callback != null);
-
             int length = Items.Length;
 
             var work = new int[length];
             for (var i = 0; i < length; i++)
                 work[i] = i;
 
-            var result = new T[length];
 
             foreach (var index in GetIntPermutations(work, 0, length))
             {
+                // Moving this line out of the loop avoids repeated memory allocation in the loop and is faster. However, it means that the same memory is used every time through the loop, so callers must process each item in the list as they get it, insted of doing ToList or something and processing later (as in this case all the items will be the same.
+                // This method used to use a callback, which avoided the need for this but made the code harder to understand
+                // I think this is fine, permutations are O(N!) which get big very very quickly, and basically can't be handled at any reasonable numbers, even when heavily optimised. So you need to find some way to limit the number of permutations anaylsed, at which point the repeated memory allocation basically becomes an irrelevance.
+                var result = new T[length];
                 for (var i = 0; i < length; i++) result[i] = Items[index[i]];
-                if (callback(result) == false) return false;
+                yield return result;
             }
-
-            return true;
         }
 
         public IEnumerable<int[]> GetIntPermutations(int[] index, int offset, int len)

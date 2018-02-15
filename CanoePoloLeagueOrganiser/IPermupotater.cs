@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CanoePoloLeagueOrganiser
 {
     public interface IPermupotater<T>
     {
-        bool EnumeratePermutations(Func<T[], bool> callback);
-    }
+        IEnumerable<T[]> Permutations();
+   }
 }
