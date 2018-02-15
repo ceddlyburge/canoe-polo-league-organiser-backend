@@ -16,11 +16,12 @@ namespace CanoePoloLeagueOrganiser
         PlayList playList;
         PartialGameOrderMetrics partialPlayListMetrics;
 
+        uint GetCurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches => optimalPlayListMetrics?.OccurencesOfTeamsPlayingConsecutiveMatches ?? uint.MaxValue;
+
         // A new object should be construted for each set of permutations to analyse
         public RunningOptimalGameOrder() =>
             optimalPlayListMetrics = null;
 
-        uint GetCurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches => optimalPlayListMetrics?.OccurencesOfTeamsPlayingConsecutiveMatches ?? uint.MaxValue;
 
         // This should be called for each playlist permutation. 
         public void UpdateOptimalGameOrderIfOptimal(PlayList playList)
