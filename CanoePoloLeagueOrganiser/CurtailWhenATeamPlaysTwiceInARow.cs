@@ -16,8 +16,8 @@ namespace CanoePoloLeagueOrganiser
             Games = games;
         }
 
-        // The permupotater will call the curtailment function after every item in the permutation is fixed, so we don't need to analyse all the games in the permutation for teams playing twice in a row, and can instead just analyse the last two.
-        // There is some primitive obsession here, which I am ok with as it is required by the permupotater, which is striving for speed
+        // The permutater will call the curtailment function after every item in the permutation is fixed, so we don't need to analyse all the games in the permutation for teams playing twice in a row, and can instead just analyse the last two.
+        // There is some primitive obsession here, which I am ok with as it is required by the permuater, which is striving for speed
         public bool Curtail(int[] gameIndexes, int length)
         {
             Length = length;
