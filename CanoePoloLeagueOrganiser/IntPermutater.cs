@@ -19,7 +19,11 @@ namespace CanoePoloLeagueOrganiser
             Curtail = curtail;
         }
 
-        public IEnumerable<int[]> GetIntPermutations(int[] index, int offset, int len)
+        public IEnumerable<int[]> Permutations(int[] index) =>
+            Permutations(index, 0, index.Length);
+
+
+        IEnumerable<int[]> Permutations(int[] index, int offset, int len)
         {
             if (Curtail(index, offset - 1) == false)
             {
@@ -40,16 +44,16 @@ namespace CanoePoloLeagueOrganiser
                         break;
                     default:
                         // a list with three (or more) items has:
-                        // the first item with all possible permutations of the remaining items
-                        foreach (var result in GetIntPermutations(index, offset + 1, len - 1))
+                        // 1. the first item with all possible permutations of the remaining items
+                        foreach (var result in Permutations(index, offset + 1, len - 1))
                             yield return result;
-                        // the second item moved to be first with all possible permutations of the remaining items
-                        // and the third item moved to be first with all possible permutations of the remaining items
+                        // 2. the second item moved to be first with all possible permutations of the remaining items
+                        // 3+. and the third item moved to be first with all possible permutations of the remaining items
                         // etc
                         for (var i = 1; i < len; i++)
                         {
                             Swap(index, offset, offset + i);
-                            foreach (var result in GetIntPermutations(index, offset + 1, len - 1))
+                            foreach (var result in Permutations(index, offset + 1, len - 1))
                                 yield return result;
                             Swap(index, offset, offset + i);
                         }
@@ -76,12 +80,12 @@ namespace CanoePoloLeagueOrganiser
                         Swap(index, offset, offset + 1);
                         break;
                     default:
-                        foreach (var result in GetIntPermutations(index, offset + 1, len - 1))
+                        foreach (var result in Permutations(index, offset + 1, len - 1))
                             yield return result;
                         for (var i = 1; i < len; i++)
                         {
                             Swap(index, offset, offset + i);
-                            foreach (var result in GetIntPermutations(index, offset + 1, len - 1))
+                            foreach (var result in Permutations(index, offset + 1, len - 1))
                                 yield return result;
                             Swap(index, offset, offset + i);
                         }

@@ -28,7 +28,7 @@ namespace CanoePoloLeagueOrganiser
 
             int[] resuedIntPermutation = InitialiseWork(length);
 
-            foreach (var index in IntPermutater.GetIntPermutations(resuedIntPermutation, 0, length))
+            foreach (var index in IntPermutater.Permutations(resuedIntPermutation))
                 yield return GenericPermutionOfT(length, index);
         }
 
