@@ -10,7 +10,7 @@ namespace CanoePoloLeagueOrganiser
 {
     public class Permutater<T> : IPermutater<T>
     {
-        Func<int[], int, bool> Curtail { get; }
+        IntPermutater IntPermutater { get; }
         T[] Items { get; }
 
         public Permutater(T[] items, Func<int[], int, bool> curtail)
@@ -18,7 +18,7 @@ namespace CanoePoloLeagueOrganiser
             Requires(items != null);
             Requires(curtail != null);
 
-            Curtail = curtail;
+            IntPermutater = new IntPermutater(curtail);
             Items = items;
         }
 
@@ -26,59 +26,34 @@ namespace CanoePoloLeagueOrganiser
         {
             int length = Items.Length;
 
+            int[] resuedIntPermutation = InitialiseWork(length);
+
+            foreach (var index in IntPermutater.GetIntPermutations(resuedIntPermutation, 0, length))
+                yield return GenericPermutionOfT(length, index);
+        }
+
+        static int[] InitialiseWork(int length)
+        {
             var work = new int[length];
+
             for (var i = 0; i < length; i++)
                 work[i] = i;
 
-
-            foreach (var index in GetIntPermutations(work, 0, length))
-            {
-                // Moving this line out of the loop avoids repeated memory allocation in the loop and is faster. However, it means that the same memory is used every time through the loop, so callers must process each item in the list as they get it, insted of doing ToList or something and processing later (as in this case all the items will be the same.
-                // This method used to use a callback, which avoided the need for this but made the code harder to understand
-                // I think this is fine, permutations are O(N!) which get big very very quickly, and basically can't be handled at any reasonable numbers, even when heavily optimised. So you need to find some way to limit the number of permutations anaylsed, at which point the repeated memory allocation basically becomes an irrelevance.
-                var result = new T[length];
-                for (var i = 0; i < length; i++) result[i] = Items[index[i]];
-                yield return result;
-            }
+            return work;
         }
 
-        public IEnumerable<int[]> GetIntPermutations(int[] index, int offset, int len)
+        // We could turn this in to an enumerable? array is probably faster, and it is going to get accessed a lot of times so is probably more what we want
+        T[] GenericPermutionOfT(int length, int[] index)
         {
-            if (Curtail(index, offset - 1) == false)
-            {
-                switch (len)
-                {
-                    case 1:
-                        yield return index;
-                        break;
-                    case 2:
-                        if (Curtail(index, offset) == false && (Curtail(index, offset + 1) == false))
-                            yield return index;
-                        Swap(index, offset, offset + 1);
-                        if (Curtail(index, offset) == false && (Curtail(index, offset + 1) == false))
-                            yield return index;
-                        Swap(index, offset, offset + 1);
-                        break;
-                    default:
-                        foreach (var result in GetIntPermutations(index, offset + 1, len - 1))
-                            yield return result;
-                        for (var i = 1; i < len; i++)
-                        {
-                            Swap(index, offset, offset + i);
-                            foreach (var result in GetIntPermutations(index, offset + 1, len - 1))
-                                yield return result;
-                            Swap(index, offset, offset + i);
-                        }
-                        break;
-                }
-            }
-        }
+            // Moving this line out of the loop avoids repeated memory allocation in the loop and is faster. However, it means that the same memory is used every time through the loop, so callers must process each item in the list as they get it, instead of doing ToList or something and processing later (as in this case all the items will be the same.
+            // This method used to use a callback, which avoided the need for this but made the code harder to understand
+            // I think this is fine, permutations are O(N!) which get big very very quickly, and basically can't be handled at any reasonable numbers, even when heavily optimised. So you need to find some way to limit the number of permutations anaylsed, at which point the repeated memory allocation basically becomes an irrelevance.
+            var result = new T[length];
 
-        static void Swap(int[] index, int offset1, int offset2)
-        {
-            var temp = index[offset1];
-            index[offset1] = index[offset2];
-            index[offset2] = temp;
+            foreach (int i in index)
+                result[i] = Items[index[i]];
+
+            return result;
         }
 
     }

@@ -7,7 +7,7 @@ using static System.Math;
 
 namespace CanoePoloLeagueOrganiserTests
 {
-    public class PermupotaterTests
+    public class PermutaterTests
     {
         [Fact]
         public void OneItem()

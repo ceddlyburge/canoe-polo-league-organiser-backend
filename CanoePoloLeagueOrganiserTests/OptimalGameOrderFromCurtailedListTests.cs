@@ -27,7 +27,7 @@ namespace CanoePoloLeagueOrganiserTests
                 new Game("Jesters", "Oxford"),
                 new Game("Vkc Pilchards", "Oxford"),
             };
-
+            
             var sut = new OptimalGameOrderWithPragmatisation(EnumerateAllPermutations(games).Permutations(), new TenSecondPragmatiser()).CalculateGameOrder();
 
             Assert.False(PlayingTwiceInARow("Castle", sut.OptimisedGameOrder.GameOrder));

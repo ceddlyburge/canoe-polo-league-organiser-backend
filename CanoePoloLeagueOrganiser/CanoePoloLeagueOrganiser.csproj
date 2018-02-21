@@ -46,6 +46,7 @@
     <Compile Include="GameOrderMetricsComparer.cs" />
     <Compile Include="GameOrderPossiblyNullCalculation.cs" />
     <Compile Include="OptimalGameOrderWithPragmatisation.cs" />
+    <Compile Include="Permutater.cs" />
     <Compile Include="PlayList.cs" />
     <Compile Include="GamesNotPlayedBetweenFirstAndLast.cs" />
     <Compile Include="GamesNotPlayedBetweenFirstAndLastByTeam.cs" />
@@ -60,7 +61,7 @@
     <Compile Include="IPermutater.cs" />
     <Compile Include="IPragmatiser.cs" />
     <Compile Include="MarkConsecutiveGames.cs" />
-    <Compile Include="Permutater.cs" />
+    <Compile Include="IntPermutater.cs" />
     <Compile Include="PlayListException.cs" />
     <Compile Include="PragmatisationLevel.cs" />
     <Compile Include="RubyInspiredListFunctions.cs" />
