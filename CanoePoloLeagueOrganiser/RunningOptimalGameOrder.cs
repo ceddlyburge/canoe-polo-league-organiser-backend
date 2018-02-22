@@ -16,7 +16,6 @@ namespace CanoePoloLeagueOrganiser
         PlayList playList;
         PartialGameOrderMetrics partialPlayListMetrics;
 
-        // A new object should be construted for each set of permutations to analyse
         public RunningOptimalGameOrder() =>
             optimalPlayListMetrics = null;
 
