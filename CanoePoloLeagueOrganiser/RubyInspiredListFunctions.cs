@@ -18,10 +18,10 @@ namespace CanoePoloLeagueOrganiser
                 yield return PairAt(list, i);
         }
 
-        private static IEnumerable<T> ListAt<T>(IEnumerable<T> enumerable, int index, int length) =>
+        static IEnumerable<T> ListAt<T>(IEnumerable<T> enumerable, int index, int length) =>
             enumerable.Skip(index).Take(length);
 
-        private static Tuple<T, T> PairAt<T>(IReadOnlyList<T> list, int i) =>
+        static Tuple<T, T> PairAt<T>(IReadOnlyList<T> list, int i) =>
             new Tuple<T, T>(list[i], list[i + 1]);
     }
 }
