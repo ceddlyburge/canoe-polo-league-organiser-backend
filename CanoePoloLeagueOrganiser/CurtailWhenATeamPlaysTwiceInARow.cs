@@ -30,16 +30,16 @@ namespace CanoePoloLeagueOrganiser
         }
 
         bool OnlyOneGame =>
-            Length < 1;
+            Length == 1;
 
         bool TeamPlayingConsecutivelyInLastTwoGames =>
             CurrentGame.Playing(PreviousGame.HomeTeam) || 
             CurrentGame.Playing(PreviousGame.AwayTeam);
 
         Game PreviousGame =>
-            Games[GameIndexes[Length - 1]];
+            Games[GameIndexes[Length - 2]];
 
         Game CurrentGame =>
-            Games[GameIndexes[Length]];
+            Games[GameIndexes[Length - 1]];
     }
 }

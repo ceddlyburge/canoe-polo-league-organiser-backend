@@ -133,10 +133,10 @@ namespace CanoePoloLeagueOrganiserTests
             (items, length) => (length == 1 && items[0] == 0 && items[1] == 1);
 
         static Func<int[], int, bool> CurtailWhenNotInAscendingOrder =>
-            (items, length) => (length > 0 && items[length] < items[length - 1]);
+            (items, length) => (length > 1 && items[length - 1] < items[length - 2]);
 
         static Func<int[], int, bool> CurtailWhenWithinOneOfPreviousNumber =>
-            (items, length) => (length > 0 && Abs(items[length - 1] - items[length]) == 1);
+            (items, length) => (length > 1 && Abs(items[length - 2] - items[length - 1]) == 1);
 
     }
 }

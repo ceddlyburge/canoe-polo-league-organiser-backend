@@ -66,13 +66,14 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="IntPermutaterCurtailmentTests.cs" />
     <Compile Include="OccurencesOfTeamsPlayingConsecutiveMatchesTests.cs" />
     <Compile Include="MaxConsecutiveMatchesByAnyTeamTests.cs" />
     <Compile Include="OptimalGameOrderTests.cs" />
     <Compile Include="GameListSerialisationTests.cs" />
     <Compile Include="MarkConsecutiveGamesTests.cs" />
     <Compile Include="NoCompromisesPragmatiser.cs" />
-    <Compile Include="PermutaterTests.cs" />
+    <Compile Include="IntPermutaterTests.cs" />
     <Compile Include="PragmatiserTests.cs" />
     <Compile Include="OptimalGameOrderFromCurtailedListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

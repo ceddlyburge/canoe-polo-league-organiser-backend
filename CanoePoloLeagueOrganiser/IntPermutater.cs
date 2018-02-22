@@ -19,47 +19,53 @@ namespace CanoePoloLeagueOrganiser
             Curtail = curtail;
         }
 
-        public IEnumerable<int[]> Permutations(int[] index) =>
-            Permutations(index, 0, index.Length);
+        public IEnumerable<int[]> Permutations(int[] values) =>
+            Permutations(values, 0, values.Length);
 
 
-        IEnumerable<int[]> Permutations(int[] index, int offset, int len)
+        // this function is difficult to refactor because
+        // - you can't yield return a list, only a single value
+        // - it is recursive, and relies on the parameters being kept on the stack
+        IEnumerable<int[]> Permutations(int[] values, int fromPosition, int remainingLength)
         {
-            if (Curtail(index, offset - 1) == false)
+            //if (Curtail(values, fromPosition - 1) == false)
+            //{
+            switch (remainingLength)
             {
-                switch (len)
-                {
-                    case 1:
-                        // a list with one item only has one permutation, which is the list
-                        yield return index;
-                        break;
-                    case 2:
-                        // a list with two items has two permutations, the original order and the reverse
-                        if (Curtail(index, offset) == false && (Curtail(index, offset + 1) == false))
-                            yield return index;
-                        Swap(index, offset, offset + 1);
-                        if (Curtail(index, offset) == false && (Curtail(index, offset + 1) == false))
-                            yield return index;
-                        Swap(index, offset, offset + 1);
-                        break;
-                    default:
-                        // a list with three (or more) items has:
-                        // 1. the first item with all possible permutations of the remaining items
-                        foreach (var result in Permutations(index, offset + 1, len - 1))
+                case 1:
+                    // a list with one item only has one permutation, which is the list
+                    if (Curtail(values, fromPosition + 1) == false)
+                        yield return values;
+                    break;
+                case 2:
+                    // a list with two items has two permutations, the original order and the reverse
+                    if (Curtail(values, fromPosition + 1) == false && Curtail(values, fromPosition + 2) == false)
+                        yield return values;
+                    Swap(values, fromPosition, fromPosition + 1);
+                    if (Curtail(values, fromPosition + 1) == false && (Curtail(values, fromPosition + 2) == false))
+                        yield return values;
+                    Swap(values, fromPosition, fromPosition + 1);
+                    break;
+                default:
+                    // a list with three (or more) items has:
+                    // 1. the first item with all possible permutations of the remaining items
+                    if (Curtail(values, fromPosition + 1) == false)
+                        foreach (var result in Permutations(values, fromPosition + 1, remainingLength - 1))
                             yield return result;
-                        // 2. the second item moved to be first with all possible permutations of the remaining items
-                        // 3+. and the third item moved to be first with all possible permutations of the remaining items
-                        // etc
-                        for (var i = 1; i < len; i++)
-                        {
-                            Swap(index, offset, offset + i);
-                            foreach (var result in Permutations(index, offset + 1, len - 1))
+                    // 2. the second item moved to be first with all possible permutations of the remaining items
+                    // 3+. and the third item moved to be first with all possible permutations of the remaining items
+                    // etc
+                    for (var i = 1; i < remainingLength; i++)
+                    {
+                        Swap(values, fromPosition, fromPosition + i);
+                        if (Curtail(values, fromPosition + 1) == false)
+                            foreach (var result in Permutations(values, fromPosition + 1, remainingLength - 1))
                                 yield return result;
-                            Swap(index, offset, offset + i);
-                        }
-                        break;
-                }
+                        Swap(values, fromPosition, fromPosition + i);
+                    }
+                    break;
             }
+            //}
         }
 
         public IEnumerable<int[]> GetIntPermutations2(int[] index, int offset, int len)
