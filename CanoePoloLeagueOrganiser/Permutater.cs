@@ -5,6 +5,7 @@ using static System.Diagnostics.Contracts.Contract;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static CanoePoloLeagueOrganiser.IntPermutater;
 
 namespace CanoePoloLeagueOrganiser
 {
@@ -13,7 +14,7 @@ namespace CanoePoloLeagueOrganiser
         IntPermutater IntPermutater { get; }
         T[] Items { get; }
 
-        public Permutater(T[] items, Func<int[], int, bool> curtail)
+        public Permutater(T[] items, CurtailmentFunction curtail)
         {
             Requires(items != null);
             Requires(curtail != null);

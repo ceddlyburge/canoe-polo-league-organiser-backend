@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 using static System.Math;
+using static CanoePoloLeagueOrganiser.IntPermutater;
 
 namespace CanoePoloLeagueOrganiserTests
 {
@@ -126,16 +127,16 @@ namespace CanoePoloLeagueOrganiserTests
         static bool NoCurtailment(int[] items, int length) =>
             false;
 
-        static Func<int[], int, bool> CurtailEverything =>
+        static CurtailmentFunction CurtailEverything =>
             (items, length) => true;
 
-        static Func<int[], int, bool> Curtail01 =>
+        static CurtailmentFunction Curtail01 =>
             (items, length) => (length == 1 && items[0] == 0 && items[1] == 1);
 
-        static Func<int[], int, bool> CurtailWhenNotInAscendingOrder =>
+        static CurtailmentFunction CurtailWhenNotInAscendingOrder =>
             (items, length) => (length > 1 && items[length - 1] < items[length - 2]);
 
-        static Func<int[], int, bool> CurtailWhenWithinOneOfPreviousNumber =>
+        static CurtailmentFunction CurtailWhenWithinOneOfPreviousNumber =>
             (items, length) => (length > 1 && Abs(items[length - 2] - items[length - 1]) == 1);
 
     }

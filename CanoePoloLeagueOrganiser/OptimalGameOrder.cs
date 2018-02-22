@@ -4,6 +4,7 @@ using static System.Diagnostics.Contracts.Contract;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static CanoePoloLeagueOrganiser.IntPermutater;
 
 namespace CanoePoloLeagueOrganiser
 {
@@ -11,7 +12,7 @@ namespace CanoePoloLeagueOrganiser
     {
         readonly IPragmatiser pragmatiser;
         IReadOnlyList<Game> games;
-        Func<int[], int, bool> curtailWhenTeamPlaysConsecutively;
+        CurtailmentFunction curtailWhenTeamPlaysConsecutively;
 
         public OptimalGameOrder(IPragmatiser pragmatiser)
         {
@@ -60,7 +61,7 @@ namespace CanoePoloLeagueOrganiser
             return GameOrder(NoCurtailment);
         }
 
-        GameOrderPossiblyNullCalculation GameOrder(Func<int[], int, bool> curtailer)
+        GameOrderPossiblyNullCalculation GameOrder(CurtailmentFunction curtailer)
         {
             return new OptimalGameOrderWithPragmatisation(
                 new Permutater<Game>(games.ToArray(), curtailer).Permutations()
@@ -68,7 +69,7 @@ namespace CanoePoloLeagueOrganiser
                 pragmatiser).CalculateGameOrder();
         }
 
-        Func<int[], int, bool> ExpensivelyGetTeamPlayingConsecutivelyCurtailer() =>
+        CurtailmentFunction ExpensivelyGetTeamPlayingConsecutivelyCurtailer() =>
             new CurtailWhenATeamPlaysTwiceInARow(games).Curtail;
 
         bool NoCurtailment(int[] gameIndexes, int length) =>

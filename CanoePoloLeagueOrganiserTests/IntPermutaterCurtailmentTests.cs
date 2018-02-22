@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 using static System.Math;
+using static CanoePoloLeagueOrganiser.IntPermutater;
 
 namespace CanoePoloLeagueOrganiserTests
 {
@@ -68,7 +69,7 @@ namespace CanoePoloLeagueOrganiserTests
             Assert.Contains("210", curtailmentPoints);
         }
 
-        static Func<int[], int, bool> RecordCurtailmentPoints(List<String> curtailmentPoints) =>
+        static CurtailmentFunction RecordCurtailmentPoints(List<String> curtailmentPoints) =>
             (int[] items, int length) => 
             {
                 curtailmentPoints.Add(items.Take(length).Aggregate("", (s, l) => s + l.ToString()));
