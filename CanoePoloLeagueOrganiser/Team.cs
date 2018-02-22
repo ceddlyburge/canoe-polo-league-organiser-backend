@@ -10,10 +10,8 @@ namespace CanoePoloLeagueOrganiser
     {
         public string Name { get; }
 
-        public Team(string name)
-        {
+        public Team(string name) =>
             Name = name;
-        }
 
         public override bool Equals(object  obj)
         {
@@ -23,9 +21,7 @@ namespace CanoePoloLeagueOrganiser
             return false;
         }
 
-        public override int GetHashCode()
-        {
-            return Name.GetHashCode();
-        }
+        public override int GetHashCode() =>
+            Name.GetHashCode();
     }
 }
