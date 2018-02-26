@@ -3,7 +3,7 @@ using static System.Diagnostics.Contracts.Contract;
 
 namespace CanoePoloLeagueOrganiser
 {
-    internal class CurtailWhenATeamPlaysTwiceInARow
+    public class CurtailWhenATeamPlaysTwiceInARow
     {
         IReadOnlyList<Game> Games { get; }
         int Length { get; set; }
