@@ -7,7 +7,6 @@ namespace CanoePoloLeagueOrganiser
         string lastHomeTeam;
         string lastAwayTeam;
 
-
         public uint Calculate(PlayList playList)
         {
             Requires(playList != null);

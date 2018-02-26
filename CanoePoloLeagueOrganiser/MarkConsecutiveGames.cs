@@ -11,7 +11,7 @@ namespace CanoePoloLeagueOrganiser
     {
         IReadOnlyList<Game> Games { get; set; }
 
-        public IReadOnlyList<Game> MarkTeamsPlayingConsecutively(IReadOnlyList<Game> games)
+        public IReadOnlyList<AnalysedGame> MarkTeamsPlayingConsecutively(IReadOnlyList<Game> games)
         {
             Requires(games != null);
 
@@ -22,14 +22,14 @@ namespace CanoePoloLeagueOrganiser
                 .ToList();
         }
 
-        Game MarkTeamsPlayingConsecutivelyInGameByIndex(int index) =>
+        AnalysedGame MarkTeamsPlayingConsecutivelyInGameByIndex(int index) =>
             MarkTeamsPlayingConsecutivelyInGame(
                   PreviousGame(index),
                   Games[index],
                   NextGame(index));
 
-        Game MarkTeamsPlayingConsecutivelyInGame(Game previousGame, Game game, Game nextGame) =>
-            new Game(
+        AnalysedGame MarkTeamsPlayingConsecutivelyInGame(Game previousGame, Game game, Game nextGame) =>
+            new AnalysedGame(
                 homeTeam: 
                     game.HomeTeam,
                 awayTeam: 

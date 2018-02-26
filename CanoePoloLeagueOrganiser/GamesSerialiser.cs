@@ -7,21 +7,21 @@ namespace CanoePoloLeagueOrganiser
 {
     public class GamesSerialiser
     {
-        public string Serialise(IEnumerable<Game> games) =>
+        public string Serialise(IEnumerable<AnalysedGame> games) =>
             JsonConvert
                 .SerializeObject(
                     CreateMutableGames(games));
 
-        public List<Game> DeSerialise(string json) =>
+        public List<AnalysedGame> DeSerialise(string json) =>
             JsonConvert
                 .DeserializeObject<List<MutableGame>>(json, ConvertPascalCaseToCamelCase())
                 .Select(g => CreateGame(g))
                  .ToList();
 
-        static IEnumerable<MutableGame> CreateMutableGames(IEnumerable<Game> games) =>
+        static IEnumerable<MutableGame> CreateMutableGames(IEnumerable<AnalysedGame> games) =>
             games.Select(g => CreateMutableGame(g));
 
-        static MutableGame CreateMutableGame(Game g) =>
+        static MutableGame CreateMutableGame(AnalysedGame g) =>
             new MutableGame
             {
                 HomeTeam = g.HomeTeam.Name,
@@ -30,8 +30,8 @@ namespace CanoePoloLeagueOrganiser
                 AwayTeamPlayingConsecutively = g.AwayTeamPlayingConsecutively
             };
 
-        static Game CreateGame(MutableGame g) =>
-            new Game(
+        static AnalysedGame CreateGame(MutableGame g) =>
+            new AnalysedGame(
                 homeTeam: new Team(g.HomeTeam),
                 awayTeam: new Team(g.AwayTeam),
                 homeTeamPlayingConsecutively: g.HomeTeamPlayingConsecutively,

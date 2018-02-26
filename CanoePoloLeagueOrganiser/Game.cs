@@ -11,11 +11,9 @@ namespace CanoePoloLeagueOrganiser
     public class Game
     {
         public Team HomeTeam { get; }
-        public bool HomeTeamPlayingConsecutively { get; }
         public Team AwayTeam { get; }
-        public bool AwayTeamPlayingConsecutively { get; }
 
-        Game(Team homeTeam, Team awayTeam)
+        protected Game(Team homeTeam, Team awayTeam)
         {
             Requires(homeTeam != null);
             Requires(awayTeam != null);
@@ -30,17 +28,6 @@ namespace CanoePoloLeagueOrganiser
         {
             Requires(!string.IsNullOrWhiteSpace(homeTeam));
             Requires(!string.IsNullOrWhiteSpace(awayTeam));
-        }
-
-        public Game(
-            Team homeTeam, 
-            Team awayTeam, 
-            bool homeTeamPlayingConsecutively, 
-            bool awayTeamPlayingConsecutively) : 
-            this(homeTeam, awayTeam)
-        {
-            HomeTeamPlayingConsecutively = homeTeamPlayingConsecutively;
-            AwayTeamPlayingConsecutively = awayTeamPlayingConsecutively;
         }
 
         public bool Playing(Team team) =>

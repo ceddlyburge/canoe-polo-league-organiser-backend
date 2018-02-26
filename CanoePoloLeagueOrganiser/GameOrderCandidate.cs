@@ -9,13 +9,13 @@ namespace CanoePoloLeagueOrganiser
 {
     public class GameOrderCandidate
     {
-        public IReadOnlyList<Game> GameOrder { get; }
+        public IReadOnlyList<AnalysedGame> GameOrder { get; }
         public uint OccurencesOfTeamsPlayingConsecutiveMatches { get; }
         public uint MaxConsecutiveMatchesByAnyTeam { get; }
         public uint GamesNotPlayedBetweenFirstAndLast { get;}
 
         public GameOrderCandidate(
-            IReadOnlyList<Game> gameOrder, 
+            IReadOnlyList<AnalysedGame> gameOrder, 
             uint occurencesOfTeamsPlayingConsecutiveMatches, 
             uint maxConsecutiveMatchesByAnyTeam, 
             uint gamesNotPlayedBetweenFirstAndLast)

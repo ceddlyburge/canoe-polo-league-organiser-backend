@@ -39,6 +39,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalysedGame.cs" />
     <Compile Include="CurtailWhenATeamPlaysTwiceInARow.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameOrderCalculation.cs" />
@@ -46,6 +47,7 @@
     <Compile Include="GameOrderMetricsComparer.cs" />
     <Compile Include="GameOrderPossiblyNullCalculation.cs" />
     <Compile Include="OptimalGameOrderWithPragmatisation.cs" />
+    <Compile Include="PartialGameOrderMetrics.cs" />
     <Compile Include="Permutater.cs" />
     <Compile Include="PlayList.cs" />
     <Compile Include="GamesNotPlayedBetweenFirstAndLast.cs" />
