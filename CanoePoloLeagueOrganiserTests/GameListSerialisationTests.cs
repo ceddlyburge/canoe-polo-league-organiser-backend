@@ -20,7 +20,7 @@ namespace CanoePoloLeagueOrganiserTests
             var sut = new GamesSerialiser();
             var deserialised = sut.DeSerialise(sut.Serialise(games));
 
-            Assert.Equal(1, deserialised.Count);
+            Assert.Single(deserialised);
             Assert.Equal(deserialised[0].HomeTeam.Name, homeTeam);
             Assert.Equal(deserialised[0].AwayTeam.Name, awayTeam);
         }

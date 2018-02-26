@@ -18,7 +18,6 @@ namespace CanoePoloLeagueOrganiser
             MaxConsecutiveMatchesByAnyTeam = partial.MaxConsecutiveMatchesByAnyTeam.Value;
             OccurencesOfTeamsPlayingConsecutiveMatches = partial.OccurencesOfTeamsPlayingConsecutiveMatches.Value;
             GamesNotPlayedBetweenFirstAndLast = partial.GamesNotPlayedBetweenFirstAndLast.Value;
-
         }
     }
 }
