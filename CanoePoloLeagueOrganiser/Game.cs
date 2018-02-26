@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using static System.Diagnostics.Contracts.Contract;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CanoePoloLeagueOrganiser
 {
@@ -41,6 +39,5 @@ namespace CanoePoloLeagueOrganiser
 
         public override string ToString() =>
             $"{HomeTeam.Name} v {AwayTeam.Name}";
-
     }
 }
