@@ -5,36 +5,50 @@ namespace CanoePoloLeagueOrganiser
 {
     public class TenSecondPragmatiser : IPragmatiser
     {
-        public string Message { get; set; }
+        public PragmatisationLevel Level { get; private set; }
+        public string Message { get; private set; }
+        bool acceptableSolutionExists;
+        readonly TimeSpan ONE_SECOND = TimeSpan.FromSeconds(1);
+        readonly TimeSpan TEN_SECONDS = TimeSpan.FromSeconds(10);
 
-        public PragmatisationLevel Level { get; set; }
 
         public TenSecondPragmatiser()
         {
             Message = "";
             Level = PragmatisationLevel.Perfect;
+            acceptableSolutionExists = false;
         }
 
+        // This both mutates something and returns something, which is bad, but I think its an acceptable compromise.
+        // Instead of taking lowestOccurencesOfTeamsPlayingConsecutiveMatches, it might be more useful to take the running optimal solution (the best solution found so far)
         public bool AcceptableSolution(TimeSpan timeElapsed, uint lowestOccurencesOfTeamsPlayingConsecutiveMatches)
         {
-            if (timeElapsed >= TEN_SECONDS)
-            {
-                Message = "There are too many teams to analyse all possible combinations, so this is the best solution found after ten seconds of number crunching";
-                Level = PragmatisationLevel.OutOfTime;
-                return true;
-            }
+            UpdatePragmatisation(timeElapsed, lowestOccurencesOfTeamsPlayingConsecutiveMatches);
 
-            if (timeElapsed >= ONE_SECOND && lowestOccurencesOfTeamsPlayingConsecutiveMatches == 0)
-            {
-                Message = "There are too many teams to analyse all possible combinations, so this is the best solution that has no team playing twice in a row";
-                Level = PragmatisationLevel.NoTeamPlayingConsecutively;
-                return true;
-            }
-
-            return false;
+            return acceptableSolutionExists;
         }
 
-        readonly TimeSpan ONE_SECOND = TimeSpan.FromSeconds(1);
-        readonly TimeSpan TEN_SECONDS = TimeSpan.FromSeconds(10);
+        void UpdatePragmatisation(TimeSpan timeElapsed, uint lowestOccurencesOfTeamsPlayingConsecutiveMatches)
+        {
+            if (timeElapsed >= TEN_SECONDS)
+                OutOfTime();
+
+            if (timeElapsed >= ONE_SECOND && lowestOccurencesOfTeamsPlayingConsecutiveMatches == 0)
+                NoTeamPlayingConsecutively();
+        }
+
+        void OutOfTime()
+        {
+            Message = "There are too many teams to analyse all possible combinations, so this is the best solution found after ten seconds of number crunching";
+            Level = PragmatisationLevel.OutOfTime;
+            acceptableSolutionExists = true;
+        }
+
+        void NoTeamPlayingConsecutively()
+        {
+            Message = "There are too many teams to analyse all possible combinations, so this is the best solution that has no team playing twice in a row";
+            Level = PragmatisationLevel.NoTeamPlayingConsecutively;
+            acceptableSolutionExists = true;
+        }
     }
 }
