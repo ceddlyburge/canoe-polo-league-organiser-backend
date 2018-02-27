@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CanoePoloLeagueOrganiser
 {
@@ -11,7 +10,7 @@ namespace CanoePoloLeagueOrganiser
         GameOrderMetrics metrics;
         PartialGameOrderMetrics partialMetrics;
 
-        public bool IsBetterOrCouldBe(GameOrderMetrics metrics, PartialGameOrderMetrics partialMetrics)
+        public bool IsBetterOrMightBe(PartialGameOrderMetrics partialMetrics, GameOrderMetrics metrics)
         {
             this.metrics = metrics;
             this.partialMetrics = partialMetrics;

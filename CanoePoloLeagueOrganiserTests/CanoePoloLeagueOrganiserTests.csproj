@@ -66,6 +66,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="GameOrderMetricsComparerTests.cs" />
     <Compile Include="GameTests.cs" />
     <Compile Include="CurtailWhenATeamPlaysTwiceInARowTests.cs" />
     <Compile Include="IntPermutaterCurtailmentTests.cs" />

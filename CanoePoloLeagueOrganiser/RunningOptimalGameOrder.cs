@@ -75,7 +75,7 @@ namespace CanoePoloLeagueOrganiser
             if (optimalPlayListMetrics == null)
                 return true;
 
-            return new GameOrderMetricsComparer().IsBetterOrCouldBe(optimalPlayListMetrics, partialPlayListMetrics);
+            return new GameOrderMetricsComparer().IsBetterOrMightBe(partialPlayListMetrics, optimalPlayListMetrics);
         }
 
         uint GetCurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches => optimalPlayListMetrics?.OccurencesOfTeamsPlayingConsecutiveMatches ?? uint.MaxValue;
