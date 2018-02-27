@@ -10,13 +10,13 @@ namespace CanoePoloLeagueOrganiser
         public string Serialise(IEnumerable<AnalysedGame> games) =>
             JsonConvert
                 .SerializeObject(
-                    CreateMutableGames(games));
+                    CreateMutableGames(games), ConvertPascalCaseToCamelCase());
 
         public List<AnalysedGame> DeSerialise(string json) =>
             JsonConvert
                 .DeserializeObject<List<MutableGame>>(json, ConvertPascalCaseToCamelCase())
                 .Select(g => CreateGame(g))
-                 .ToList();
+                .ToList();
 
         static IEnumerable<MutableGame> CreateMutableGames(IEnumerable<AnalysedGame> games) =>
             games.Select(g => CreateMutableGame(g));
