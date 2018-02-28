@@ -17,7 +17,7 @@ namespace CanoePoloLeagueOrganiserTests
                 new Game("Battersea", "VKC")
                 );
 
-            var teams = sut.Teams.Select(t => t.ToString()).ToList();
+            var teams = sut.Teams.Select(t => t.Name).ToList();
 
             Assert.Equal(4, teams.Count);
             Assert.Contains("Clapham", teams);
