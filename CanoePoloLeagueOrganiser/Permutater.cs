@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using static System.Diagnostics.Contracts.Contract;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using static CanoePoloLeagueOrganiser.IntPermutater;
 
 namespace CanoePoloLeagueOrganiser
@@ -27,9 +25,9 @@ namespace CanoePoloLeagueOrganiser
         {
             int length = Items.Length;
 
-            int[] resuedIntPermutation = InitialiseWork(length);
+            int[] reusedIntPermutation = InitialiseWork(length);
 
-            foreach (var index in IntPermutater.Permutations(resuedIntPermutation))
+            foreach (var index in IntPermutater.Permutations(reusedIntPermutation))
                 yield return GenericPermutionOfT(length, index);
         }
 
@@ -43,7 +41,7 @@ namespace CanoePoloLeagueOrganiser
             return work;
         }
 
-        // We could turn this in to an enumerable? array is probably faster, and it is going to get accessed a lot of times so is probably more what we want
+        // We could turn this in to an enumerable. However array is probably faster, and it is going to get accessed a lot of times so is probably more what we want
         T[] GenericPermutionOfT(int length, int[] index)
         {
             // Moving this line out of the loop avoids repeated memory allocation in the loop and is faster. However, it means that the same memory is used every time through the loop, so callers must process each item in the list as they get it, instead of doing ToList or something and processing later (as in this case all the items will be the same.

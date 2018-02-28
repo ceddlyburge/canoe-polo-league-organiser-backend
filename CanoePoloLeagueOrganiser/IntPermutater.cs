@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using static System.Diagnostics.Contracts.Contract;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CanoePoloLeagueOrganiser
 {
