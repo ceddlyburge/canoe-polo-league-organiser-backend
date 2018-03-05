@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="GameOrderMetricsComparerTests.cs" />
     <Compile Include="GamesNotPlayedBetweenFirstAndLastTests.cs" />
+    <Compile Include="PragmatisePermutationsTests.cs" />
     <Compile Include="PermutaterTests.cs" />
     <Compile Include="PlayListTests.cs" />
     <Compile Include="GameTests.cs" />

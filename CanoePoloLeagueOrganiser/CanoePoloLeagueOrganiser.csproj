@@ -46,6 +46,7 @@
     <Compile Include="GameOrderMetrics.cs" />
     <Compile Include="GameOrderMetricsComparer.cs" />
     <Compile Include="GameOrderPossiblyNullCalculation.cs" />
+    <Compile Include="IRunningOptimalGameOrder.cs" />
     <Compile Include="OptimalGameOrderWithPragmatisation.cs" />
     <Compile Include="PartialGameOrderMetrics.cs" />
     <Compile Include="Permutater.cs" />

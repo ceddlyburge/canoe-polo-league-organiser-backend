@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CanoePoloLeagueOrganiser
 {
-    public class RunningOptimalGameOrder
+    public class RunningOptimalGameOrder : IRunningOptimalGameOrder
     {
         public GameOrderCandidate OptimalGameOrder { get; private set; }
         public uint CurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches => 

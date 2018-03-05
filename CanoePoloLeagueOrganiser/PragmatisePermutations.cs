@@ -12,14 +12,14 @@ namespace CanoePoloLeagueOrganiser
         IEnumerable<Game[]> Permutations { get; }
         IPragmatiser Pragmatiser { get; }
         DateTime TimeStartedCalculation { get; set;  }
-        RunningOptimalGameOrder RunningOptimalGameOrder { get; }
+        IRunningOptimalGameOrder RunningOptimalGameOrder { get; }
 
         uint permutationCount;
 
         public PragmatisePermutations(
             IEnumerable<Game[]> permutations,
             IPragmatiser pragmatiser,
-            RunningOptimalGameOrder runningOptimalGameOrder)
+            IRunningOptimalGameOrder runningOptimalGameOrder)
         {
             Requires(pragmatiser != null);
             Requires(permutations != null);
