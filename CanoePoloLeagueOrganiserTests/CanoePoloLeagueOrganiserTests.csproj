@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="GameOrderMetricsComparerTests.cs" />
     <Compile Include="GamesNotPlayedBetweenFirstAndLastTests.cs" />
+    <Compile Include="TenSecondPragmatiserTests.cs" />
     <Compile Include="RunningOptimalGameOrderTests.cs" />
     <Compile Include="RubyInspiredListFunctionsTests.cs" />
     <Compile Include="PragmatisePermutationsTests.cs" />
