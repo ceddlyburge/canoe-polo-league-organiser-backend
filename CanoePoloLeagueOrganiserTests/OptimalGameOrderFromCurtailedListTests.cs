@@ -42,7 +42,7 @@ namespace CanoePoloLeagueOrganiserTests
 
             var sut = new OptimalGameOrderWithPragmatisation(EnumerateAllPermutations(games).Permutations(), new NoCompromisesPragmatiser()).CalculateGameOrder();
 
-            Assert.Equal(1, sut.OptimisedGameOrder.GameOrder.Count());
+            Assert.Single(sut.OptimisedGameOrder.GameOrder);
         }
 
         [Fact]
