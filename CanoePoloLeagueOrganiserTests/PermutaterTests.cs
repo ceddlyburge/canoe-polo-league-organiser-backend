@@ -65,6 +65,5 @@ namespace CanoePoloLeagueOrganiserTests
         static void ConcatenatePermuation(List<string> permutations, String[] permutation) =>
             permutations.Add(string.Join("", permutation));
 
-
     }
 }

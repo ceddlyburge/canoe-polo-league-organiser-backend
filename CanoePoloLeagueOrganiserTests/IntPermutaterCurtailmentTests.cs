@@ -3,7 +3,6 @@ using CanoePoloLeagueOrganiser;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
-using static System.Math;
 using static CanoePoloLeagueOrganiser.IntPermutater;
 
 namespace CanoePoloLeagueOrganiserTests
