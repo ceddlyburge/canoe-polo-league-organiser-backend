@@ -28,7 +28,7 @@ namespace CanoePoloLeagueOrganiserTests
 
             var timeTaken = DateTime.Now.Subtract(timeStart);
 
-            Assert.True(timeTaken < new TimeSpan(0, 0, 10));
+            Assert.True(timeTaken < TimeSpan.FromSeconds(1));
         }
 
         [Fact]
@@ -47,7 +47,7 @@ namespace CanoePoloLeagueOrganiserTests
 
             var timeTaken = DateTime.Now.Subtract(timeStart);
 
-            Assert.True(timeTaken < new TimeSpan(0, 0, 1));
+            Assert.True(timeTaken < TimeSpan.FromSeconds(1));
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace CanoePoloLeagueOrganiserTests
 
             var timeTaken = DateTime.Now.Subtract(timeStart);
 
-            Assert.True(timeTaken < new TimeSpan(0, 0, 1));
+            Assert.True(timeTaken < TimeSpan.FromSeconds(1));
         }
 
         IEnumerable<Game[]> CreatePermuations(int numberOfPermutations)
