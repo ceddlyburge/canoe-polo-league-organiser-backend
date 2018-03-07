@@ -84,7 +84,6 @@
     <Compile Include="MarkConsecutiveGamesTests.cs" />
     <Compile Include="NoCompromisesPragmatiser.cs" />
     <Compile Include="IntPermutaterTests.cs" />
-    <Compile Include="PragmatiserTests.cs" />
     <Compile Include="OptimalGameOrderFromCurtailedListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
