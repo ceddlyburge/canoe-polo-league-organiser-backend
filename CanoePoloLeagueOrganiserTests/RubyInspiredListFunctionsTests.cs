@@ -16,10 +16,9 @@ namespace CanoePoloLeagueOrganiserTests
             var actual = list.EachCons2();
 
             Assert.Collection(actual,
-                (pair) => { Assert.Equal(1, pair.Item1); Assert.Equal(2, pair.Item2); },
-                (pair) => { Assert.Equal(2, pair.Item1); Assert.Equal(3, pair.Item2); },
-                (pair) => { Assert.Equal(3, pair.Item1); Assert.Equal(4, pair.Item2); }
-                );
+                AssertPair(1, 2),
+                AssertPair(2, 3),
+                AssertPair(3, 4));
         }
 
         [Fact]
@@ -30,10 +29,21 @@ namespace CanoePoloLeagueOrganiserTests
             var actual = list.EachCons(3);
 
             Assert.Collection(actual,
-                (triple) => Assert.Equal("1,2,3", string.Join(",", triple)),
-                (triple) => Assert.Equal("2,3,4", string.Join(",", triple)),
-                (triple) => Assert.Equal("3,4,5", string.Join(",", triple))
-                );
+                AssertTriple("1,2,3"),
+                AssertTriple("2,3,4"),
+                AssertTriple("3,4,5"));
+        }
+    
+        static Action<IEnumerable<int>> AssertTriple(string csvTriple) =>
+            (triple) => Assert.Equal(csvTriple, string.Join(",", triple));
+
+        static Action<Tuple<int, int>> AssertPair(int firstValue, int secondValue)
+        {
+            return (pair) =>
+            {
+                Assert.Equal(firstValue, pair.Item1);
+                Assert.Equal(secondValue, pair.Item2);
+            };
         }
     }
 }
