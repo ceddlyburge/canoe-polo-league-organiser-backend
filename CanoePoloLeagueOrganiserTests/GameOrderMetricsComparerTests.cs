@@ -104,8 +104,5 @@ namespace CanoePoloLeagueOrganiserTests
                 GamesNotPlayedBetweenFirstAndLast = gamesNotPlayedBetweenFirstAndLast
             };
         }
-
-        static uint Random() =>
-            (uint) new Random().Next();
     }
 }
