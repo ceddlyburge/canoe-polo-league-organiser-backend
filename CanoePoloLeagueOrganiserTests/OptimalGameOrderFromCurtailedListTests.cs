@@ -88,7 +88,7 @@ namespace CanoePoloLeagueOrganiserTests
 
             var sut = new OptimalGameOrderWithPragmatisation(EnumerateAllPermutations(games).Permutations(), new NoCompromisesPragmatiser()).CalculateGameOrder();
 
-            Assert.Equal((uint)2, sut.OptimisedGameOrder.MaxConsecutiveMatchesByAnyTeam);
+            Assert.Equal((uint)2, sut.OptimisedGameOrder.MaxPlayingInConsecutiveGames);
         }
 
         [Fact]
@@ -104,7 +104,7 @@ namespace CanoePoloLeagueOrganiserTests
 
             var sut = new OptimalGameOrderWithPragmatisation(EnumerateAllPermutations(games).Permutations(), new NoCompromisesPragmatiser()).CalculateGameOrder();
 
-            Assert.Equal((uint)2, sut.OptimisedGameOrder.MaxConsecutiveMatchesByAnyTeam);
+            Assert.Equal((uint)2, sut.OptimisedGameOrder.MaxPlayingInConsecutiveGames);
         }
 
         [Fact]

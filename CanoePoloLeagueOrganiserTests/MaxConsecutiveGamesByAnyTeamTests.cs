@@ -20,7 +20,7 @@ namespace CanoePoloLeagueOrganiserTests
              });
 
             var slow = new MaxConsecutiveMatchesByAnyTeamSlowButObvious().Calculate(playList);
-            var fast = new MaxConsecutiveMatchesByAnyTeam().Calculate(playList);
+            var fast = new MaxConsecutiveGamesByAnyTeam().Calculate(playList);
 
             Assert.Equal((uint) 2, slow);
             Assert.Equal((uint) 2, fast);
@@ -37,7 +37,7 @@ namespace CanoePoloLeagueOrganiserTests
              });
 
             var slow = new MaxConsecutiveMatchesByAnyTeamSlowButObvious().Calculate(playList);
-            var fast = new MaxConsecutiveMatchesByAnyTeam().Calculate(playList);
+            var fast = new MaxConsecutiveGamesByAnyTeam().Calculate(playList);
 
             Assert.Equal((uint)2, slow);
             Assert.Equal((uint)2, fast);
@@ -56,7 +56,7 @@ namespace CanoePoloLeagueOrganiserTests
              });
 
             var slow = new MaxConsecutiveMatchesByAnyTeamSlowButObvious().Calculate(playList);
-            var fast = new MaxConsecutiveMatchesByAnyTeam().Calculate(playList);
+            var fast = new MaxConsecutiveGamesByAnyTeam().Calculate(playList);
 
             Assert.Equal((uint)3, slow);
             Assert.Equal((uint)3, fast);

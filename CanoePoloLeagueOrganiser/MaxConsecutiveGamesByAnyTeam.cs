@@ -6,7 +6,7 @@ using static System.Math;
 
 namespace CanoePoloLeagueOrganiser
 {
-    public class MaxConsecutiveMatchesByAnyTeam
+    public class MaxConsecutiveGamesByAnyTeam
     {
         public uint Calculate(PlayList playList)
         {
@@ -33,5 +33,4 @@ namespace CanoePoloLeagueOrganiser
             return maxConsecutiveGames;
         }
     }
-
 }

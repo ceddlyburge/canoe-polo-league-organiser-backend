@@ -8,8 +8,8 @@ namespace CanoePoloLeagueOrganiser
     public class RunningOptimalGameOrder : IRunningOptimalGameOrder
     {
         public GameOrderCandidate OptimalGameOrder { get; private set; }
-        public uint CurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches => 
-            GetCurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches;
+        public uint RunningOccurencesOfTeamsPlayingConsecutiveMatches => 
+            GetRunningOccurencesOfTeamsPlayingConsecutiveMatches;
 
         GameOrderMetrics optimalPlayListMetrics;
         PlayList playList;
@@ -29,7 +29,7 @@ namespace CanoePoloLeagueOrganiser
             Initialise(playList);
             // It calculates each metric, and then only continues on if the metrics so far are as good or better than the current best (this saves unecessary calculations)
             // It has to be done in the same priority order to be any use, and hence duplicates the logic in GameOrderMetricsComparer, which is a shame. However, it will still work if the order is wrong, it just won't optimise out some of the calculations. I think this is as good a solutions as can be, but am leaving the comment here in case in prompts further ideas later.
-            CalculateMaxConsecutiveMatchesByAnyTeam();
+            CalculateMaxPlayingInConsecutiveGames();
             IfCouldBeOptimal(CalculateOccurencesOfTeamsPlayingConsecutiveMatches);
             IfCouldBeOptimal(CalculateGamesNotPlayedBetweenFirstAndLast);
             IfCouldBeOptimal(UpdateOptimal);
@@ -42,8 +42,8 @@ namespace CanoePoloLeagueOrganiser
             partialPlayListMetrics = new PartialGameOrderMetrics();
         }
 
-        void CalculateMaxConsecutiveMatchesByAnyTeam() =>
-            partialPlayListMetrics.MaxConsecutiveMatchesByAnyTeam = new MaxConsecutiveMatchesByAnyTeam().Calculate(playList);
+        void CalculateMaxPlayingInConsecutiveGames() =>
+            partialPlayListMetrics.MaxPlayingInConsecutiveGames = new MaxConsecutiveGamesByAnyTeam().Calculate(playList);
 
         void CalculateOccurencesOfTeamsPlayingConsecutiveMatches() =>
             partialPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches = new OccurencesOfTeamsPlayingConsecutiveMatches().Calculate(playList);
@@ -58,7 +58,7 @@ namespace CanoePoloLeagueOrganiser
             OptimalGameOrder = new GameOrderCandidate(
                     new MarkConsecutiveGames().MarkTeamsPlayingConsecutively(playList.Games),
                     optimalPlayListMetrics.OccurencesOfTeamsPlayingConsecutiveMatches,
-                    optimalPlayListMetrics.MaxConsecutiveMatchesByAnyTeam,
+                    optimalPlayListMetrics.MaxPlayingInConsecutiveGames,
                     optimalPlayListMetrics.GamesNotPlayedBetweenFirstAndLast);
         }
 
@@ -77,7 +77,7 @@ namespace CanoePoloLeagueOrganiser
             return new GameOrderMetricsComparer().IsBetterOrMightBe(partialPlayListMetrics, optimalPlayListMetrics);
         }
 
-        uint GetCurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches => optimalPlayListMetrics?.OccurencesOfTeamsPlayingConsecutiveMatches ?? uint.MaxValue;
+        uint GetRunningOccurencesOfTeamsPlayingConsecutiveMatches => optimalPlayListMetrics?.OccurencesOfTeamsPlayingConsecutiveMatches ?? uint.MaxValue;
 
     }
 }

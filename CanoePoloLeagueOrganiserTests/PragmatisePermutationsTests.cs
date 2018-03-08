@@ -78,7 +78,7 @@ namespace CanoePoloLeagueOrganiserTests
 
     internal class AnyRunningOptimalGameOrder : IRunningOptimalGameOrder
     {
-        public uint CurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches => 100;
+        public uint RunningOccurencesOfTeamsPlayingConsecutiveMatches => 100;
     }
 
     internal class CheckingPragmatisationTakes100Milliseconds : IPragmatiser
@@ -110,7 +110,7 @@ namespace CanoePoloLeagueOrganiserTests
 
     internal class ZeroConsecutiveMatches : IRunningOptimalGameOrder
     {
-        public uint CurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches => 0;
+        public uint RunningOccurencesOfTeamsPlayingConsecutiveMatches => 0;
     }
 
     internal class PragmatiseWhenZeroConsecutiveMatches : IPragmatiser

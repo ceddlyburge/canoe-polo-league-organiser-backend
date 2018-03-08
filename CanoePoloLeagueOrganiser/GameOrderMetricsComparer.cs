@@ -15,9 +15,9 @@ namespace CanoePoloLeagueOrganiser
             this.metrics = metrics;
             this.partialMetrics = partialMetrics;
 
-            // the first order criteria is MaxConsecutiveMatchesByAnyTeam. Only in the case where this is a tie do we need to look at lower order metrics
-            if (MaxConsecutiveMatchesByAnyTeam_IsDifferent)
-                return Is_MaxConsecutiveMatchesByAnyTeam_BetterOrCouldBe;
+            // the first order criteria is maxPlayingInConsecutiveGames. Only in the case where this is a tie do we need to look at lower order metrics
+            if (MaxPlayingInConsecutiveGames_IsDifferent)
+                return Is_MaxPlayingInConsecutiveGames_BetterOrCouldBe;
 
             // the second order criteria is OccurencesOfTeamsPlayingConsecutiveMatches. Only in the case where this is a tie do we need to look at lower order metrics
             if (OccurencesOfTeamsPlayingConsecutiveMatches_IsDifferent)
@@ -27,12 +27,12 @@ namespace CanoePoloLeagueOrganiser
             return Is_GamesNotPlayedBetweenFirstAndLast_BetterOrCouldBe;
         }
 
-        bool MaxConsecutiveMatchesByAnyTeam_IsDifferent =>
-            metrics.MaxConsecutiveMatchesByAnyTeam != partialMetrics.MaxConsecutiveMatchesByAnyTeam;
+        bool MaxPlayingInConsecutiveGames_IsDifferent =>
+            metrics.MaxPlayingInConsecutiveGames != partialMetrics.MaxPlayingInConsecutiveGames;
 
-        bool Is_MaxConsecutiveMatchesByAnyTeam_BetterOrCouldBe =>
-            (partialMetrics.MaxConsecutiveMatchesByAnyTeam.HasValue == false)
-            || partialMetrics.MaxConsecutiveMatchesByAnyTeam < metrics.MaxConsecutiveMatchesByAnyTeam;
+        bool Is_MaxPlayingInConsecutiveGames_BetterOrCouldBe =>
+            (partialMetrics.MaxPlayingInConsecutiveGames.HasValue == false)
+            || partialMetrics.MaxPlayingInConsecutiveGames < metrics.MaxPlayingInConsecutiveGames;
 
         bool OccurencesOfTeamsPlayingConsecutiveMatches_IsDifferent =>
             metrics.OccurencesOfTeamsPlayingConsecutiveMatches != partialMetrics.OccurencesOfTeamsPlayingConsecutiveMatches;

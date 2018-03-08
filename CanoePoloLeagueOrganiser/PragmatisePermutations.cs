@@ -61,7 +61,7 @@ namespace CanoePoloLeagueOrganiser
                 (permutationCount++ % 1000 == 0)
                 && Pragmatiser.AcceptableSolution(
                     DateTime.Now.Subtract(TimeStartedCalculation),
-                    RunningOptimalGameOrder.CurrentMaxOccurencesOfTeamsPlayingConsecutiveMatches);
+                    RunningOptimalGameOrder.RunningOccurencesOfTeamsPlayingConsecutiveMatches);
         }
     }
 }

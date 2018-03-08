@@ -11,13 +11,13 @@ namespace CanoePoloLeagueOrganiser
     {
         public IReadOnlyList<AnalysedGame> GameOrder { get; }
         public uint OccurencesOfTeamsPlayingConsecutiveMatches { get; }
-        public uint MaxConsecutiveMatchesByAnyTeam { get; }
+        public uint MaxPlayingInConsecutiveGames { get; }
         public uint GamesNotPlayedBetweenFirstAndLast { get;}
 
         public GameOrderCandidate(
             IReadOnlyList<AnalysedGame> gameOrder, 
             uint occurencesOfTeamsPlayingConsecutiveMatches, 
-            uint maxConsecutiveMatchesByAnyTeam, 
+            uint maxPlayingInConsecutiveGames, 
             uint gamesNotPlayedBetweenFirstAndLast)
         {
             // should also check that there are no duplicates
@@ -25,7 +25,7 @@ namespace CanoePoloLeagueOrganiser
 
             GameOrder = gameOrder;
             OccurencesOfTeamsPlayingConsecutiveMatches = occurencesOfTeamsPlayingConsecutiveMatches;
-            MaxConsecutiveMatchesByAnyTeam = maxConsecutiveMatchesByAnyTeam;
+            MaxPlayingInConsecutiveGames = maxPlayingInConsecutiveGames;
             GamesNotPlayedBetweenFirstAndLast = gamesNotPlayedBetweenFirstAndLast;
         }
     }

@@ -51,7 +51,7 @@ namespace CanoePoloLeagueOrganiserTests
 
             var gameOrder = new OptimalGameOrder(new NoCompromisesPragmatiser()).OptimiseGameOrder(games);
 
-            Assert.Equal((uint)2, gameOrder.OptimisedGameOrder.MaxConsecutiveMatchesByAnyTeam);
+            Assert.Equal((uint)2, gameOrder.OptimisedGameOrder.MaxPlayingInConsecutiveGames);
         }
 
     }
