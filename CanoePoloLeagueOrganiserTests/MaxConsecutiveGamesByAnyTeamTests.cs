@@ -8,7 +8,7 @@ using Xunit;
 
 namespace CanoePoloLeagueOrganiserTests
 {
-    public class MaxConsecutiveMatchesByAnyTeamTests
+    public class MaxConsecutiveGamesByAnyTeamTests
     {
         [Fact]
         public void TwoInRowAtStart()
@@ -19,7 +19,7 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Avon", "Castle"),
              });
 
-            var slow = new MaxConsecutiveMatchesByAnyTeamSlowButObvious().Calculate(playList);
+            var slow = new MaxConsecutiveGamesByAnyTeamSlowButObvious().Calculate(playList);
             var fast = new MaxConsecutiveGamesByAnyTeam().Calculate(playList);
 
             Assert.Equal((uint) 2, slow);
@@ -36,7 +36,7 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Avon", "Castle"),
              });
 
-            var slow = new MaxConsecutiveMatchesByAnyTeamSlowButObvious().Calculate(playList);
+            var slow = new MaxConsecutiveGamesByAnyTeamSlowButObvious().Calculate(playList);
             var fast = new MaxConsecutiveGamesByAnyTeam().Calculate(playList);
 
             Assert.Equal((uint)2, slow);
@@ -55,7 +55,7 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Braintree", "MAD"),
              });
 
-            var slow = new MaxConsecutiveMatchesByAnyTeamSlowButObvious().Calculate(playList);
+            var slow = new MaxConsecutiveGamesByAnyTeamSlowButObvious().Calculate(playList);
             var fast = new MaxConsecutiveGamesByAnyTeam().Calculate(playList);
 
             Assert.Equal((uint)3, slow);

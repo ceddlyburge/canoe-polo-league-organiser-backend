@@ -8,7 +8,7 @@ using Xunit;
 
 namespace CanoePoloLeagueOrganiserTests
 {
-    public class OccurencesOfTeamsPlayingConsecutiveMatchesTests
+    public class OccurencesOfTeamsPlayingConsecutiveGamesTests
     {
         [Fact]
         public void OneOccurenceAtStart()

@@ -27,14 +27,14 @@ namespace CanoePoloLeagueOrganiserTests
         public void MaxPlayingInConsecutiveGames_IsPrimaryMetric()
         {
             // MaxPlayingInConsecutiveGames = 3
-            // OccurencesOfTeamsPlayingConsecutiveMatches = 2
+            // OccurencesOfTeamsPlayingConsecutiveGames = 2
             var worstPlaylist = CreatePlayList(
                 new Game("1", "Castle"),
                 new Game("2", "Castle"),
                 new Game("3", "Castle"));
 
             // MaxPlayingInConsecutiveGames = 2
-            // OccurencesOfTeamsPlayingConsecutiveMatches = 3
+            // OccurencesOfTeamsPlayingConsecutiveGames = 3
             var bestPlaylist = CreatePlayList(
                 new Game("1", "Castle"),
                 new Game("2", "Castle"),
@@ -50,10 +50,10 @@ namespace CanoePoloLeagueOrganiserTests
         }
 
         [Fact]
-        public void OccurencesOfTeamsPlayingConsecutiveMatches_IsSecondaryMetric()
+        public void OccurencesOfTeamsPlayingConsecutiveGames_IsSecondaryMetric()
         {
             // MaxPlayingInConsecutiveGames = 2
-            // OccurencesOfTeamsPlayingConsecutiveMatches = 2
+            // OccurencesOfTeamsPlayingConsecutiveGames = 2
             // GamesNotPlayedBetweenFirstAndLast = 1
             var worstPlaylist = CreatePlayList(
                 new Game("1", "Castle"),
@@ -63,7 +63,7 @@ namespace CanoePoloLeagueOrganiserTests
                 new Game("6", "Castle"));
 
             // MaxPlayingInConsecutiveGames = 2
-            // OccurencesOfTeamsPlayingConsecutiveMatches = 1
+            // OccurencesOfTeamsPlayingConsecutiveGames = 1
             // GamesNotPlayedBetweenFirstAndLast = 2
             var bestPlaylist = CreatePlayList(
                 new Game("1", "Castle"),
@@ -83,7 +83,7 @@ namespace CanoePoloLeagueOrganiserTests
         public void GamesNotPlayedBetweenFirstAndLast_IsThirdOrderMetric()
         {
             // MaxPlayingInConsecutiveGames = 0
-            // OccurencesOfTeamsPlayingConsecutiveMatches = 0
+            // OccurencesOfTeamsPlayingConsecutiveGames = 0
             // GamesNotPlayedBetweenFirstAndLast = 2
             var worstPlaylist = CreatePlayList(
                 new Game("1", "Castle"),
@@ -92,7 +92,7 @@ namespace CanoePoloLeagueOrganiserTests
                 new Game("6", "Castle"));
 
             // MaxPlayingInConsecutiveGames = 0
-            // OccurencesOfTeamsPlayingConsecutiveMatches = 0
+            // OccurencesOfTeamsPlayingConsecutiveGames = 0
             // GamesNotPlayedBetweenFirstAndLast = 1
             var bestPlaylist = CreatePlayList(
                 new Game("1", "Castle"),

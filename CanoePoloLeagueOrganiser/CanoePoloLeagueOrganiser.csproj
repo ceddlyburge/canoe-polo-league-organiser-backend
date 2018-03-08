@@ -53,11 +53,11 @@
     <Compile Include="PlayList.cs" />
     <Compile Include="GamesNotPlayedBetweenFirstAndLast.cs" />
     <Compile Include="GamesNotPlayedBetweenFirstAndLastByTeam.cs" />
-    <Compile Include="MaxConsecutiveMatchesByAnyTeam.cs" />
-    <Compile Include="MaxConsecutiveMatchesByAnyTeamSlowButObvious.cs" />
+    <Compile Include="MaxConsecutiveGamesByAnyTeam.cs" />
+    <Compile Include="MaxConsecutiveGamesByAnyTeamSlowButObvious.cs" />
     <Compile Include="MutableGame.cs" />
-    <Compile Include="OccurencesOfTeamsPlayingConsecutiveMatches.cs" />
-    <Compile Include="OccurencesOfTeamsPlayingConsecutiveMatchesSlowButObvious.cs" />
+    <Compile Include="OccurencesOfTeamsPlayingConsecutiveGames.cs" />
+    <Compile Include="OccurencesOfTeamsPlayingConsecutiveGamesSlowButObvious.cs" />
     <Compile Include="OptimalGameOrder.cs" />
     <Compile Include="GameOrderCandidate.cs" />
     <Compile Include="GamesSerialiser.cs" />

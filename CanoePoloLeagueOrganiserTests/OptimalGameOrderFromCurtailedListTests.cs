@@ -8,7 +8,7 @@ namespace CanoePoloLeagueOrganiserTests
 {
     // aims:
     // - The maximum consecutive games a team plays should be minimised
-    // - The number of times a team plays consecutive matches should be minimised
+    // - The number of times a team plays consecutive games should be minimised
     // - the amount of games that teams don't play between their first and last games should be minimised
     public class OptimalGameOrderFromCurtailedListTests
     {

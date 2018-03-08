@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace CanoePoloLeagueOrganiser
 {
-    public class MaxConsecutiveMatchesByAnyTeamSlowButObvious
+    public class MaxConsecutiveGamesByAnyTeamSlowButObvious
     {
         PlayList PlayList { get; set; }
 

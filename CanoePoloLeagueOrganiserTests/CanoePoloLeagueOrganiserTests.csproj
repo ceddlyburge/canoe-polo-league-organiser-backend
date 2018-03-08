@@ -78,7 +78,7 @@
     <Compile Include="CurtailWhenATeamPlaysTwiceInARowTests.cs" />
     <Compile Include="IntPermutaterCurtailmentTests.cs" />
     <Compile Include="OccurencesOfTeamsPlayingConsecutiveMatchesTests.cs" />
-    <Compile Include="MaxConsecutiveMatchesByAnyTeamTests.cs" />
+    <Compile Include="MaxConsecutiveGamesByAnyTeamTests.cs" />
     <Compile Include="OptimalGameOrderTests.cs" />
     <Compile Include="GameListSerialisationTests.cs" />
     <Compile Include="MarkConsecutiveGamesTests.cs" />

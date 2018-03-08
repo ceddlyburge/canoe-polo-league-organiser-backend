@@ -2,7 +2,7 @@
 
 namespace CanoePoloLeagueOrganiser
 {
-    public class OccurencesOfTeamsPlayingConsecutiveMatches
+    public class OccurencesOfTeamsPlayingConsecutiveGames
     {
         string lastHomeTeam;
         string lastAwayTeam;
