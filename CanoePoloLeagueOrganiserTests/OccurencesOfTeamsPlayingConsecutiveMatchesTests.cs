@@ -19,8 +19,8 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Avon", "Castle"),
              });
 
-            var slow = new OccurencesOfTeamsPlayingConsecutiveMatchesSlowButObvious().Calculate(playList);
-            var fast = new OccurencesOfTeamsPlayingConsecutiveMatches().Calculate(playList);
+            var slow = new OccurencesOfTeamsPlayingConsecutiveGamesSlowButObvious().Calculate(playList);
+            var fast = new OccurencesOfTeamsPlayingConsecutiveGames().Calculate(playList);
 
             Assert.Equal((uint) 1, slow);
             Assert.Equal((uint) 1, fast);
@@ -35,8 +35,8 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Battersea", "Castle"),
              });
 
-            var slow = new OccurencesOfTeamsPlayingConsecutiveMatchesSlowButObvious().Calculate(playList);
-            var fast = new OccurencesOfTeamsPlayingConsecutiveMatches().Calculate(playList);
+            var slow = new OccurencesOfTeamsPlayingConsecutiveGamesSlowButObvious().Calculate(playList);
+            var fast = new OccurencesOfTeamsPlayingConsecutiveGames().Calculate(playList);
 
             Assert.Equal((uint)2, slow);
             Assert.Equal((uint)2, fast);
@@ -52,8 +52,8 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Castle", "Avon"),
              });
 
-            var slow = new OccurencesOfTeamsPlayingConsecutiveMatchesSlowButObvious().Calculate(playList);
-            var fast = new OccurencesOfTeamsPlayingConsecutiveMatches().Calculate(playList);
+            var slow = new OccurencesOfTeamsPlayingConsecutiveGamesSlowButObvious().Calculate(playList);
+            var fast = new OccurencesOfTeamsPlayingConsecutiveGames().Calculate(playList);
 
             Assert.Equal((uint)1, slow);
             Assert.Equal((uint)1, fast);
@@ -72,8 +72,8 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Braintree", "MAD"),
              });
 
-            var slow = new OccurencesOfTeamsPlayingConsecutiveMatchesSlowButObvious().Calculate(playList);
-            var fast = new OccurencesOfTeamsPlayingConsecutiveMatches().Calculate(playList);
+            var slow = new OccurencesOfTeamsPlayingConsecutiveGamesSlowButObvious().Calculate(playList);
+            var fast = new OccurencesOfTeamsPlayingConsecutiveGames().Calculate(playList);
 
             Assert.Equal((uint)2, slow);
             Assert.Equal((uint)2, fast);

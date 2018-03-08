@@ -20,20 +20,20 @@ namespace CanoePoloLeagueOrganiser
         }
 
         // This both mutates something and returns something, which is bad, but I think its an acceptable compromise.
-        // Instead of taking lowestOccurencesOfTeamsPlayingConsecutiveMatches, it might be more useful to take the running optimal solution (the best solution found so far)
-        public bool AcceptableSolution(TimeSpan timeElapsed, uint lowestOccurencesOfTeamsPlayingConsecutiveMatches)
+        // Instead of taking lowestOccurencesOfTeamsPlayingConsecutiveGames, it might be more useful to take the running optimal solution (the best solution found so far)
+        public bool AcceptableSolution(TimeSpan timeElapsed, uint runningOccurencesOfTeamsPlayingConsecutiveGames)
         {
-            UpdatePragmatisation(timeElapsed, lowestOccurencesOfTeamsPlayingConsecutiveMatches);
+            UpdatePragmatisation(timeElapsed, runningOccurencesOfTeamsPlayingConsecutiveGames);
 
             return acceptableSolutionExists;
         }
 
-        void UpdatePragmatisation(TimeSpan timeElapsed, uint lowestOccurencesOfTeamsPlayingConsecutiveMatches)
+        void UpdatePragmatisation(TimeSpan timeElapsed, uint runningOccurencesOfTeamsPlayingConsecutiveGames)
         {
             if (timeElapsed >= TEN_SECONDS)
                 OutOfTime();
 
-            if (timeElapsed >= ONE_SECOND && lowestOccurencesOfTeamsPlayingConsecutiveMatches == 0)
+            if (timeElapsed >= ONE_SECOND && runningOccurencesOfTeamsPlayingConsecutiveGames == 0)
                 NoTeamPlayingConsecutively();
         }
 

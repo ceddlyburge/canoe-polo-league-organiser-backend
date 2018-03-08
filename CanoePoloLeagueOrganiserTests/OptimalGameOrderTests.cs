@@ -36,7 +36,7 @@ namespace CanoePoloLeagueOrganiserTests
             var gameOrder = new OptimalGameOrder(new TenSecondPragmatiser()).OptimiseGameOrder(games);
 
             Assert.True(DateTime.Now.Subtract(dateStarted) < TimeSpan.FromSeconds(11));
-            Assert.True(gameOrder.OptimisedGameOrder.OccurencesOfTeamsPlayingConsecutiveMatches == 0);
+            Assert.True(gameOrder.OptimisedGameOrder.OccurencesOfTeamsPlayingConsecutiveGames == 0);
         }
 
         [Fact]

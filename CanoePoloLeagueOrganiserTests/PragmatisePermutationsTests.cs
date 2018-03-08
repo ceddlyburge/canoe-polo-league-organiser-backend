@@ -51,7 +51,7 @@ namespace CanoePoloLeagueOrganiserTests
         }
 
         [Fact]
-        public void AllowPragmatasingOnConsecutiveMatches()
+        public void AllowPragmatasingOnConsecutiveGames()
         {
             var permutations = CreatePermuations(10000);
 
@@ -59,8 +59,8 @@ namespace CanoePoloLeagueOrganiserTests
 
             new PragmatisePermutations(
                 permutations,
-                new PragmatiseWhenZeroConsecutiveMatches(),
-                new ZeroConsecutiveMatches())
+                new PragmatiseWhenZeroConsecutiveGames(),
+                new ZeroConsecutiveGames())
             .PragmatisedPermutations()
             .ToList();
 
@@ -78,7 +78,7 @@ namespace CanoePoloLeagueOrganiserTests
 
     internal class AnyRunningOptimalGameOrder : IRunningOptimalGameOrder
     {
-        public uint RunningOccurencesOfTeamsPlayingConsecutiveMatches => 100;
+        public uint RunningOccurencesOfTeamsPlayingConsecutiveGames => 100;
     }
 
     internal class CheckingPragmatisationTakes100Milliseconds : IPragmatiser
@@ -87,7 +87,7 @@ namespace CanoePoloLeagueOrganiserTests
 
         public PragmatisationLevel Level => throw new NotImplementedException();
 
-        public bool AcceptableSolution(TimeSpan timeElapsed, uint lowestOccurencesOfTeamsPlayingConsecutiveMatches)
+        public bool AcceptableSolution(TimeSpan timeElapsed, uint lowestOccurencesOfTeamsPlayingConsecutiveGames)
         {
             Thread.Sleep(100);
             return false;
@@ -100,7 +100,7 @@ namespace CanoePoloLeagueOrganiserTests
 
         public PragmatisationLevel Level => throw new NotImplementedException();
 
-        public bool AcceptableSolution(TimeSpan timeElapsed, uint lowestOccurencesOfTeamsPlayingConsecutiveMatches)
+        public bool AcceptableSolution(TimeSpan timeElapsed, uint lowestOccurencesOfTeamsPlayingConsecutiveGames)
         {
             Thread.Sleep(100);
 
@@ -108,22 +108,22 @@ namespace CanoePoloLeagueOrganiserTests
         }
     }
 
-    internal class ZeroConsecutiveMatches : IRunningOptimalGameOrder
+    internal class ZeroConsecutiveGames : IRunningOptimalGameOrder
     {
-        public uint RunningOccurencesOfTeamsPlayingConsecutiveMatches => 0;
+        public uint RunningOccurencesOfTeamsPlayingConsecutiveGames => 0;
     }
 
-    internal class PragmatiseWhenZeroConsecutiveMatches : IPragmatiser
+    internal class PragmatiseWhenZeroConsecutiveGames : IPragmatiser
     {
         public string Message => throw new NotImplementedException();
 
         public PragmatisationLevel Level => throw new NotImplementedException();
 
-        public bool AcceptableSolution(TimeSpan timeElapsed, uint lowestOccurencesOfTeamsPlayingConsecutiveMatches)
+        public bool AcceptableSolution(TimeSpan timeElapsed, uint lowestOccurencesOfTeamsPlayingConsecutiveGames)
         {
             Thread.Sleep(100);
 
-            return lowestOccurencesOfTeamsPlayingConsecutiveMatches == 0;
+            return lowestOccurencesOfTeamsPlayingConsecutiveGames == 0;
         }
     }
 }

@@ -13,6 +13,6 @@ namespace CanoePoloLeagueOrganiserTests
 
         public string Message => "";
 
-        public bool AcceptableSolution(TimeSpan timeElapsed, uint lowestOccurencesOfTeamsPlayingConsecutiveMatches) => false;
+        public bool AcceptableSolution(TimeSpan timeElapsed, uint runningOccurencesOfTeamsPlayingConsecutiveGames) => false;
     }
 }

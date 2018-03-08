@@ -9,7 +9,7 @@ namespace CanoePoloLeagueOrganiserTests
     public class GameOrderMetricsComparerTests
     {
         // Maxconsecutive is the first order metric to compare on, so if not known we say that it might be better once known (even if its being compared against the best possible value of zero). 
-        // occurencesOfTeamsPlayingConsecutiveMatches is the second order metric to compare on
+        // occurencesOfTeamsPlayingConsecutiveGames is the second order metric to compare on
         // gamesNotPlayedBetweenFirstAndLast is the second order metric to compare on
         [Theory]
         [InlineData(0, null, true, "If not calculated yet then might be better")]
@@ -32,13 +32,13 @@ namespace CanoePoloLeagueOrganiserTests
                 mightBeBetterThanBenchmark);
         }
 
-        // OccurencesOfTeamsPlayingConsecutiveMatches is second order metric
+        // OccurencesOfTeamsPlayingConsecutiveGames is second order metric
         [Theory]
         [InlineData(0, null, true, "If not calculated yet then might be better")]
         [InlineData(0, (uint)0, true, "If same, later metrics might be better")]
         [InlineData(0, (uint)1, false, "If worse then worse")]
         [InlineData(1, (uint)0, true, "If better then better")]
-        public void OccurencesOfTeamsPlayingConsecutiveMatches(uint benchmarkOcurrences,
+        public void OccurencesOfTeamsPlayingConsecutiveGames(uint benchmarkOcurrences,
             uint? partialOcurrences,
             bool mightBeBetterThanBenchmark,
             string comment)
@@ -80,13 +80,13 @@ namespace CanoePoloLeagueOrganiserTests
 
         static GameOrderMetrics CreateMetrics(
             uint maxPlayingInConsecutiveGames,
-            uint occurencesOfTeamsPlayingConsecutiveMatches = 0,
+            uint occurencesOfTeamsPlayingConsecutiveGames = 0,
             uint gamesNotPlayedBetweenFirstAndLast = 0)
         {
             return new GameOrderMetrics(
                 CreatePartialMetrics(
                         maxPlayingInConsecutiveGames,
-                        occurencesOfTeamsPlayingConsecutiveMatches,
+                        occurencesOfTeamsPlayingConsecutiveGames,
                         gamesNotPlayedBetweenFirstAndLast
                     )
                 );
@@ -94,13 +94,13 @@ namespace CanoePoloLeagueOrganiserTests
 
         static PartialGameOrderMetrics CreatePartialMetrics(
             uint? maxPlayingInConsecutiveGames = null,
-            uint? occurencesOfTeamsPlayingConsecutiveMatches = null,
+            uint? occurencesOfTeamsPlayingConsecutiveGames = null,
             uint? gamesNotPlayedBetweenFirstAndLast = null)
         {
             return new PartialGameOrderMetrics
             {
                 MaxPlayingInConsecutiveGames = maxPlayingInConsecutiveGames,
-                OccurencesOfTeamsPlayingConsecutiveMatches = occurencesOfTeamsPlayingConsecutiveMatches,
+                OccurencesOfTeamsPlayingConsecutiveGames = occurencesOfTeamsPlayingConsecutiveGames,
                 GamesNotPlayedBetweenFirstAndLast = gamesNotPlayedBetweenFirstAndLast
             };
         }

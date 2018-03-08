@@ -19,9 +19,9 @@ namespace CanoePoloLeagueOrganiser
             if (MaxPlayingInConsecutiveGames_IsDifferent)
                 return Is_MaxPlayingInConsecutiveGames_BetterOrCouldBe;
 
-            // the second order criteria is OccurencesOfTeamsPlayingConsecutiveMatches. Only in the case where this is a tie do we need to look at lower order metrics
-            if (OccurencesOfTeamsPlayingConsecutiveMatches_IsDifferent)
-                return Is_OccurencesOfTeamsPlayingConsecutiveMatches_BetterOrCouldBe;
+            // the second order criteria is OccurencesOfTeamsPlayingConsecutiveGames. Only in the case where this is a tie do we need to look at lower order metrics
+            if (OccurencesOfTeamsPlayingConsecutiveGames_IsDifferent)
+                return Is_OccurencesOfTeamsPlayingConsecutiveGames_BetterOrCouldBe;
 
             // the lowest order criteria is GamesNotPlayedBetweenFirstAndLast.
             return Is_GamesNotPlayedBetweenFirstAndLast_BetterOrCouldBe;
@@ -34,12 +34,12 @@ namespace CanoePoloLeagueOrganiser
             (partialMetrics.MaxPlayingInConsecutiveGames.HasValue == false)
             || partialMetrics.MaxPlayingInConsecutiveGames < metrics.MaxPlayingInConsecutiveGames;
 
-        bool OccurencesOfTeamsPlayingConsecutiveMatches_IsDifferent =>
-            metrics.OccurencesOfTeamsPlayingConsecutiveMatches != partialMetrics.OccurencesOfTeamsPlayingConsecutiveMatches;
+        bool OccurencesOfTeamsPlayingConsecutiveGames_IsDifferent =>
+            metrics.OccurencesOfTeamsPlayingConsecutiveGames != partialMetrics.OccurencesOfTeamsPlayingConsecutiveGames;
 
-        bool Is_OccurencesOfTeamsPlayingConsecutiveMatches_BetterOrCouldBe =>
-            (partialMetrics.OccurencesOfTeamsPlayingConsecutiveMatches.HasValue == false)
-            || partialMetrics.OccurencesOfTeamsPlayingConsecutiveMatches < metrics.OccurencesOfTeamsPlayingConsecutiveMatches;
+        bool Is_OccurencesOfTeamsPlayingConsecutiveGames_BetterOrCouldBe =>
+            (partialMetrics.OccurencesOfTeamsPlayingConsecutiveGames.HasValue == false)
+            || partialMetrics.OccurencesOfTeamsPlayingConsecutiveGames < metrics.OccurencesOfTeamsPlayingConsecutiveGames;
 
         bool Is_GamesNotPlayedBetweenFirstAndLast_BetterOrCouldBe =>
             (partialMetrics.GamesNotPlayedBetweenFirstAndLast.HasValue == false)

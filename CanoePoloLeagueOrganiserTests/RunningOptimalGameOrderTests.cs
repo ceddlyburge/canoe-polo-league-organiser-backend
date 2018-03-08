@@ -76,7 +76,7 @@ namespace CanoePoloLeagueOrganiserTests
 
             sut.RunningCalculateOptimalGameOrder(new List<PlayList> { worstPlaylist, bestPlaylist });
 
-            Assert.Equal((uint)1, sut.OptimalGameOrder.OccurencesOfTeamsPlayingConsecutiveMatches);
+            Assert.Equal((uint)1, sut.OptimalGameOrder.OccurencesOfTeamsPlayingConsecutiveGames);
         }
 
         [Fact]

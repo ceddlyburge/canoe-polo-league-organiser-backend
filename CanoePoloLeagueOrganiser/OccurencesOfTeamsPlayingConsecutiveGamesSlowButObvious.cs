@@ -4,7 +4,7 @@ using static System.Diagnostics.Contracts.Contract;
 
 namespace CanoePoloLeagueOrganiser
 {
-    public class OccurencesOfTeamsPlayingConsecutiveMatchesSlowButObvious
+    public class OccurencesOfTeamsPlayingConsecutiveGamesSlowButObvious
     {
         public uint Calculate(PlayList playList)
         {

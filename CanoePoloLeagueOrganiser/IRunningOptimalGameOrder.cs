@@ -2,6 +2,6 @@
 {
     public interface IRunningOptimalGameOrder
     {
-        uint RunningOccurencesOfTeamsPlayingConsecutiveMatches { get; }
+        uint RunningOccurencesOfTeamsPlayingConsecutiveGames { get; }
     }
 }
