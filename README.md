@@ -2,6 +2,8 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/kicld3r0y4bpxa7g?svg=true)](https://ci.appveyor.com/project/ceddlyburge/canoe-polo-league-organiser-backend)
 
+[![codecov](https://codecov.io/gh/ceddlyburge/canoe-polo-league-organiser-backend/branch/master/graph/badge.svg)](https://codecov.io/gh/ceddlyburge/canoe-polo-league-organiser-backend)
+
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=cuddlyburger.canoe-polo-league-organiser-backend&metric=alert_status)](https://sonarcloud.io/dashboard?id=cuddlyburger.canoe-polo-league-organiser-backend)
 
 [![](http://codescene.io/projects/2521/status.svg) Get more details at **codescene.io**.](http://codescene.io/projects/2521/jobs/latest-successful/results)
