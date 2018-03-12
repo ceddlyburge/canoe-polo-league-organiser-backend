@@ -1,14 +1,11 @@
 # CanoePoloLeagueOrganiser
 
-[![Build status](https://ci.appveyor.com/api/projects/status/k50urjsh4edl5uf0?svg=true)](https://ci.appveyor.com/project/ceddlyburge/canoepololeagueorganiser)
+[![Build status](https://ci.appveyor.com/api/projects/status/kicld3r0y4bpxa7g?svg=true)](https://ci.appveyor.com/project/ceddlyburge/canoe-polo-league-organiser-backend)
 
-[![Code Coverage](https://codecov.io/gh/ceddlyburge/CanoePoloLeagueOrganiser/coverage.svg)](https://codecov.io/gh/ceddlyburge/CanoePoloLeagueOrganiser)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=cuddlyburger.canoe-polo-league-organiser-backend&metric=alert_status)](https://sonarcloud.io/dashboard?id=cuddlyburger.canoe-polo-league-organiser-backend)
 
-[![Quality Gate](https://sonarqube.com/api/badges/gate?key=CanoePoloLeagueOrganiser)](https://sonarqube.com/dashboard/index/CanoePoloLeagueOrganiser)
+[![](http://codescene.io/projects/2521/status.svg) Get more details at **codescene.io**.](http://codescene.io/projects/2521/jobs/latest-successful/results)
 
-<a href='https://play.google.com/store/apps/details?id=com.canoe_polo_organisr'><img width="120px" alt='Canoe Polo Organisr on Google Play' src='https://play.google.com/intl/en_gb/badges/images/generic/en_badge_web_generic.png'/></a>
-
-[![](https://codescene.io/projects/843/status.svg) Get more details at **codescene.io**.](https://codescene.io/projects/843/jobs/latest-successful/results)
 
 Designed to make it easier to organise UK Canoe Polo leagues. There are about 10 teams per league, and there are usually 5 days when the games are played. Each team will play in 4 of these 5 days.
 
