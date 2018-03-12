@@ -17,8 +17,9 @@ after_build:
 test_script:
 - OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"CanoePoloLeagueOrganiserTests\bin\Debug\CanoePoloLeagueOrganiserTests.dll -noshadow -appveyor"  -output:coverage.xml
 after_test:
-- SET PATH="C:\\Python34;C:\\Python34\\Scripts;%PATH%"
-- pip install codecov
-- codecov -f "coverage.xml"
+  - ps: |
+      $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+      Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+      bash codecov.sh -f "coverage.xml"
 artifacts:
   - path: CanoePoloLeagueOrganiser\*.nupkg
