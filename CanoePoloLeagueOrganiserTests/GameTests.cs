@@ -37,5 +37,13 @@ namespace CanoePoloLeagueOrganiserTests
             Assert.True(sut.Playing(new Game("Any", "Castle")));
             Assert.False(sut.Playing(new Game("Not Clapham", "Not Castle")));
         }
+
+        [Fact]
+        public void GameToString()
+        {
+            var sut = new Game("Clapham", "Castle");
+
+            Assert.Equal("Clapham v Castle", sut.ToString());
+        }
     }
 }
