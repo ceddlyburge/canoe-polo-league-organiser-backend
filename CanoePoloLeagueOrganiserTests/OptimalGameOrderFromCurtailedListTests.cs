@@ -92,7 +92,7 @@ namespace CanoePoloLeagueOrganiserTests
         }
 
         [Fact]
-        public void NobodyShouldNotPlayThriceInARow()
+        public void NobodyShouldPlayThriceInARow()
         {
             var games = new List<Game> {
                  new Game("Castle", "Letchworth"),
@@ -165,8 +165,8 @@ namespace CanoePoloLeagueOrganiserTests
 
             var gameOrder = new OptimalGameOrderWithPragmatisation(EnumerateAllPermutations(games).Permutations(), new TenSecondPragmatiser()).CalculateGameOrder();
 
-            // allow it an extra second to finish up or whatever. 
-            Assert.True(DateTime.Now.Subtract(dateStarted) < TimeSpan.FromSeconds(11));
+            // Allow 15 seconds as AppVeyor sometimes a lot slower than local (up to 100 times slower), which can cause this test to fail. I imagine the code is just not getting a turn at the cpu for long periods of time.
+            Assert.True(DateTime.Now.Subtract(dateStarted) < TimeSpan.FromSeconds(15));
             Assert.NotEqual(PragmatisationLevel.Perfect, gameOrder.PragmatisationLevel);
             Assert.False(string.IsNullOrEmpty(gameOrder.OptimisationMessage));
         }
@@ -195,13 +195,19 @@ namespace CanoePoloLeagueOrganiserTests
                  new Game("Castle", "16"),
                  new Game("Castle", "17"),
                  new Game("Castle", "18"),
-                 new Game("Castle", "19")
+                 new Game("Castle", "19"),
+                 new Game("Castle", "20"),
+                 new Game("Castle", "21"),
+                 new Game("Castle", "22"),
+                 new Game("Castle", "23"),
+                 new Game("Castle", "24"),
+                 new Game("Castle", "25"),
              };
 
             var gameOrder = new OptimalGameOrderWithPragmatisation(EnumerateAllPermutations(games).Permutations(), new TenSecondPragmatiser()).CalculateGameOrder();
 
-            // allow it an extra second to finish up or whatever. This test must take 10 seconds as there are non possible good solutions
-            Assert.True(DateTime.Now.Subtract(dateStarted) < TimeSpan.FromSeconds(11));
+            // Allow 15 seconds as AppVeyor sometimes a lot slower than local (up to 100 times slower), which can cause this test to fail. I imagine the code is just not getting a turn at the cpu for long periods of time.
+            Assert.True(DateTime.Now.Subtract(dateStarted) < TimeSpan.FromSeconds(15));
             Assert.NotEqual(PragmatisationLevel.Perfect, gameOrder.PragmatisationLevel);
             Assert.False(string.IsNullOrEmpty(gameOrder.OptimisationMessage));
         }
