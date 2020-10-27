@@ -4,8 +4,6 @@
 
 [![codecov](https://codecov.io/gh/ceddlyburge/canoe-polo-league-organiser-backend/branch/master/graph/badge.svg)](https://codecov.io/gh/ceddlyburge/canoe-polo-league-organiser-backend)
 
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=cuddlyburger.canoe-polo-league-organiser-backend&metric=alert_status)](https://sonarcloud.io/dashboard?id=cuddlyburger.canoe-polo-league-organiser-backend)
-
 Designed to make it easier to organise UK Canoe Polo leagues. There are about 10 teams per league, and there are usually 5 days when the games are played. Each team will play in 4 of these 5 days.
 
 ## Organising tournament days
