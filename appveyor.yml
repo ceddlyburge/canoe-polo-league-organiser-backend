@@ -1,9 +1,5 @@
 image: Visual Studio 2017
-environment:
-  SONARQUBE_TOKEN:
-    secure: qdGKfgHYg4+g2UpIhNRAE61rwGtm0vDLC9pUAxxDW66IiER7WLW5p4KiOxqVSjZX
 before_build:
-- choco install "msbuild-sonarqube-runner" -y
 - choco install opencover
 - nuget restore
 build:
