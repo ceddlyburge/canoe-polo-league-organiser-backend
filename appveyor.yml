@@ -9,8 +9,7 @@ after_build:
 - nuget pack -symbols
 - cd ..
 test_script:
-- C:\Users\AppVeyor\AppData\Local\Apps\OpenCover\OpenCover.Console.exe -register:Path64 Deploying to Archie
- -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"CanoePoloLeagueOrganiserTests\bin\Debug\CanoePoloLeagueOrganiserTests.dll -noshadow -appveyor"  -output:coverage.xml -returntargetcode
+- C:\Users\AppVeyor\AppData\Local\Apps\OpenCover\OpenCover.Console.exe -register:Path64 -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"CanoePoloLeagueOrganiserTests\bin\Debug\CanoePoloLeagueOrganiserTests.dll -noshadow -appveyor"  -output:coverage.xml -returntargetcode
 after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
