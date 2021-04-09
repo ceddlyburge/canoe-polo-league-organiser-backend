@@ -4,7 +4,7 @@ before_build:
 build_script:
 - dotnet build
 test_script:
-- C:\Users\AppVeyor\AppData\Local\Apps\OpenCover\OpenCover.Console.exe -register:Path32 -target:"dotnet" -targetargs:"test"  -output:coverage.xml -returntargetcode
+- C:\Users\AppVeyor\AppData\Local\Apps\OpenCover\OpenCover.Console.exe -register:Path32 -target:"c:\Program Files\dotnet\dotnet.exe" -targetargs:"test"  -output:coverage.xml -returntargetcode
 after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
