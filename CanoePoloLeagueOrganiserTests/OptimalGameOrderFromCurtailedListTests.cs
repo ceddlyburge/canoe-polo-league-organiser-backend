@@ -206,8 +206,8 @@ namespace CanoePoloLeagueOrganiserTests
 
             var gameOrder = new OptimalGameOrderWithPragmatisation(EnumerateAllPermutations(games).Permutations(), new TenSecondPragmatiser()).CalculateGameOrder();
 
-            // Allow 15 seconds as AppVeyor sometimes a lot slower than local (up to 100 times slower), which can cause this test to fail. I imagine the code is just not getting a turn at the cpu for long periods of time.
-            Assert.True(DateTime.Now.Subtract(dateStarted) < TimeSpan.FromSeconds(15));
+            // Allow more time as AppVeyor sometimes a lot slower than local (up to 100 times slower), which can cause this test to fail. I imagine the code is just not getting a turn at the cpu for long periods of time.
+            Assert.True(DateTime.Now.Subtract(dateStarted) < TimeSpan.FromSeconds(20));
             Assert.NotEqual(PragmatisationLevel.Perfect, gameOrder.PragmatisationLevel);
             Assert.False(string.IsNullOrEmpty(gameOrder.OptimisationMessage));
         }
